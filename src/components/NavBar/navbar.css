@@ -1,0 +1,30 @@
+:root{
+    --bg-body-color: rgb(30,30,30);
+    --bg-card-color: rgb(126, 126, 126);
+}
+
+.bg-body-tertiary{
+  --bs-bg-opacity: 0.7;  
+  color: black;
+}
+
+.navbar{
+  --bs-navbar-color: black;
+  --bs-navbar-hover-color: black;
+  --bs-navbar-brand-color: black;
+  z-index: 100;
+}
+
+.dropdown-menu{
+  background-color: rgba(255, 255, 255, 0.616);
+}
+
+.dropdown-item{
+  color: black;
+  text-decoration: none; 
+}
+
+.dropdown-item:hover{
+  background-color: transparent; 
+  text-decoration: none; 
+}
