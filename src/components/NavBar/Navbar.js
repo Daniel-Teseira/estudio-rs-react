@@ -1,14 +1,15 @@
 // import { useState } from 'react'
 // import { NavLink, useLocation } from 'react-router-dom'
 import './navbar.css'
+import Image from '../../images/image.js'
 
-const Navbar = ({name}) =>{
+const Navbar = ({name,img}) =>{
 // const {pathname}= useLocation()
   return(    
     <nav class="navbar navbar-expand-lg bg-body-tertiary naavbaar col-12">
     <div class="container-fluid">
       <a class="navbar-brand" href="./index.html">              
-        <img src="./images/icons8-balance-scale-96.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top"/>
+        <img src={Image.nav1} alt="Logo" width="30" height="24" class="d-inline-block align-text-top"/>
         Estudio Juridico RS
       </a>
 
@@ -35,7 +36,7 @@ const Navbar = ({name}) =>{
             <ul class="dropdown-menu">
               <section class="d-flex flex-column flex-lg-row flex-xl-row flex-xxl-row align-items-center">
                 <section class="flex-column">
-                  <img src="./images/icons8-law-94.png" alt="imagen"/>
+                  <img src={Image.nav2} alt="imagen"/>
                 </section>
 
                 <section class="flex-column">

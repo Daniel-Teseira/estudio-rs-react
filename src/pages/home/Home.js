@@ -1,4 +1,5 @@
-
+import Image from '../../images/image.js'
+import './Home.css'
 
 const Home=({name})=>{
 
@@ -11,15 +12,15 @@ const Home=({name})=>{
           <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active" data-bs-interval="7500">
-                <img src="../images/body/pexels-ekaterina-bolovtsova-6077447.jpg" class="d-block w-100" alt="..."/>
+                <img src={Image.carrusel1} class="d-block w-100" alt="..."/>
               </div>
 
               <div class="carousel-item">
-                <img src="./images/body/pexels-pixabay-159832.jpg" class="d-block w-100" alt="..."/>
+                <img src={Image.carrusel2} class="d-block w-100" alt="..."/>
               </div>
 
               <div class="carousel-item">
-                <img src="./images/body/pexels-amine-m'siouri-2246258.jpg" class="d-block w-100" alt="..."/>
+                <img src={Image.carrusel3} class="d-block w-100" alt="..."/>
               </div>
 
             </div>
@@ -38,7 +39,7 @@ const Home=({name})=>{
         <section class="d-flex flex-row flex-wrap justify-content-center col-lg-12 cards py-5">
   
           <div class="card card-s col-lg-3 col-md-2 mx-4 my-3 ">
-            <img src='../../components/images/body/familia/pexels-victoria-akvarel-1648387 (1).jpg' class="card-img-top" alt="..." width="60" height="250"/>
+            <img src={Image.card1} class="card-img-top" alt="..." width="60" height="250"/>
             <div class="card-body">
               <a class="titulos" href="./pages/error404.html">
                 <h5 class="card-title d-flex col-12 justify-content-center">Familia</h5>
@@ -48,7 +49,7 @@ const Home=({name})=>{
           </div>
 
           <div class="card card-s  col-lg-3 col-md-2 mx-4 my-3" >
-            <img src="./images/body/laboral/__C__mo-opera-el-derecho-laboral-en-M__xico_.jpg" class="card-img-top" alt="..." width="60" height="250"/>
+            <img src={Image.card2} class="card-img-top" alt="..." width="60" height="250"/>
             <div class="card-body">
               <a class="titulos" href="./pages/error404.html">
                 <h5 class="card-title d-flex col-12 justify-content-center">Laboral</h5>
@@ -58,7 +59,7 @@ const Home=({name})=>{
           </div>
 
           <div class="card card-s col-lg-3 col-md-2 mx-4 my-3" >
-            <img src="./images/body/previcional/pexels-kampus-production-8829201 (3).jpg" class="card-img-top" alt="..." width="60" height="250"/>
+            <img src={Image.card3} class="card-img-top" alt="..." width="60" height="250"/>
             <div class="card-body">
               <a class="titulos" href="./pages/error404.html">
                 <h5 class="card-title d-flex col-12 justify-content-center">Previsional </h5>
@@ -68,7 +69,7 @@ const Home=({name})=>{
           </div>
 
           <div class="card card-s col-lg-3 mx-4 my-3" >
-            <img src="./images/body/dañosYperjuicios/factor-humano-causa-accidentes-transito.jpg" class="card-img-top" alt="..." width="60" height="250"/>
+            <img src={Image.card4} class="card-img-top" alt="..." width="60" height="250"/>
             <div class="card-body">
               <a class="titulos" href="./pages/error404.html">
                 <h5 class="card-title d-flex col-12 justify-content-center">Daños y Perjuicios</h5>
@@ -78,7 +79,7 @@ const Home=({name})=>{
           </div>
 
           <div class="card card-s col-lg-3 mx-4 my-3" >
-            <img src="./images/body/prescipcionAdquisitiva/prescripcion-adquisitiva-de-dominio.jpg" class="card-img-top" alt="..." width="60" height="250"/>
+            <img src={Image.card5} class="card-img-top" alt="..." width="60" height="250"/>
             <div class="card-body">
               <a class="titulos" href="./pages/error404.html">
                 <h5 class="card-title d-flex col-12 justify-content-center">Prescripción Adquisitiva</h5>
@@ -88,7 +89,7 @@ const Home=({name})=>{
           </div>
 
           <div class="card card-s col-lg-3 mx-4 my-3" >
-            <img src="./images/body/consumidor/indice-nacional-de-precios-al.webp" class="card-img-top" alt="..." width="60" height="250"/>
+            <img src={Image.card6} class="card-img-top" alt="..." width="60" height="250"/>
             <div class="card-body">
               <a class="titulos" href="./pages/error404.html">
                 <h5 class="card-title d-flex col-12 justify-content-center">Consumidor </h5>
@@ -98,7 +99,7 @@ const Home=({name})=>{
           </div>
  
           <div class="card card-s col-lg-3 mx-4 my-3">
-            <img src="./images/body/acuerdosExtrajudiciales/pexels-pixabay-48148.jpg" class="card-img-top" alt="..." width="60" height="250"/>
+            <img src={Image.card7} class="card-img-top" alt="..." width="60" height="250"/>
             <div class="card-body">
               <a class="titulos" href="./pages/error404.html">
                 <h5 class="card-title d-flex col-12 justify-content-center">Acuerdos extrajudiciales</h5>
