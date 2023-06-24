@@ -4,7 +4,7 @@ import Image from '../../images/image.js'
 
 const Navbar = () =>{
   return(    
-    <nav className='navbar navbar-expand-lg bg-body-tertiary naavbaar col-12'>
+    <nav className='navbar navbar-expand-lg bg-body-tertiary'>
       <div className='container-fluid'>
         <NavLink className='navbar-brand' exact to={'/home'}>              
           <img src={Image.nav1} alt='Logo' width='30' height='24' className='d-inline-block align-text-top'/>
