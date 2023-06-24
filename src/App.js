@@ -1,18 +1,22 @@
-import React from 'react';
 import './App.css';
-//import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import React from 'react';
 import NavBar from './components/NavBar/Navbar';
 import Footer from './components/Footer/Footer';
 import Home from './pages/home/Home';
+import Error from './pages/error404/Error404';
 
 function App() {
   return (
     <>
-      <NavBar  
-        name='nav'
-        // img={Image} 
-      />
-      <Home name='home'/>
+      <NavBar name='nav'/>
+
+      <Routes>
+        <Route path='/home' element={ <Home /> } />
+        <Route path='/error' element={ <Error /> } />
+        <Route path='*' element={ <Error/>} />
+      </Routes>
+
       <Footer/>
     </>
   );
