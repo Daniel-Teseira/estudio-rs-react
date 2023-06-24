@@ -56,7 +56,7 @@ body{
   font-family: "Nunito Sans", sans-serif;
 }
 
-a:-webkit-any-link {
+.titulos:-webkit-any-link {
     cursor: pointer;
 }
 
@@ -65,7 +65,7 @@ a:-webkit-any-link {
 }
 
 .card img{
-    position: relative;
+    position: sticky;
 }
 
 @media screen and (max-width:992px){

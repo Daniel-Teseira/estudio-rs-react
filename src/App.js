@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import React from 'react';
 import NavBar from './components/NavBar/Navbar';
 import Footer from './components/Footer/Footer';
@@ -12,6 +12,7 @@ function App() {
       <NavBar name='nav'/>
 
       <Routes>
+        <Route index element={<Navigate to='/home' />} />
         <Route path='/home' element={ <Home /> } />
         <Route path='/error' element={ <Error /> } />
         <Route path='*' element={ <Error/>} />
