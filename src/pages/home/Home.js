@@ -37,7 +37,7 @@ const Home=()=>{
 
       <section className='d-flex flex-row flex-wrap justify-content-center col-lg-12 cards py-5'>
 
-        <div className='card card-s col-lg-3 col-md-2 mx-4 my-3 '>
+        <div className='card col-lg-3 mx-4 my-3'>
           <img src={Image.card1} className='card-img-top' alt='...' width='60' height='250'/>
           <div className='card-body'>
             <NavLink className='titulos' exact to={'/error'}>
@@ -47,7 +47,7 @@ const Home=()=>{
           </div>
         </div>
 
-        <div className='card card-s  col-lg-3 col-md-2 mx-4 my-3' >
+        <div className='card card-s col-lg-3 mx-4 my-3'>
           <img src={Image.card2} className='card-img-top' alt='...' width='60' height='250'/>
           <div className='card-body'>
             <NavLink className='titulos' exact to={'/error'}>
@@ -57,7 +57,7 @@ const Home=()=>{
           </div>        
         </div>
 
-        <div className='card card-s col-lg-3 col-md-2 mx-4 my-3' >
+        <div className='card card-s col-lg-3 mx-4 my-3'>
           <img src={Image.card3} className='card-img-top' alt='...' width='60' height='250'/>
           <div className='card-body'>
             <NavLink className='titulos' exact to={'/error'}>
@@ -67,7 +67,7 @@ const Home=()=>{
           </div>
         </div>
 
-        <div className='card card-s col-lg-3 mx-4 my-3' >
+        <div className='card card-s col-lg-3 mx-4 my-3'>
           <img src={Image.card4} className='card-img-top' alt='...' width='60' height='250'/>
           <div className='card-body'>
             <NavLink className='titulos' exact to={'/error'}>
@@ -77,7 +77,7 @@ const Home=()=>{
           </div>
         </div>
 
-        <div className='card card-s col-lg-3 mx-4 my-3' >
+        <div className='card card-s col-lg-3 mx-4 my-3'>
           <img src={Image.card5} className='card-img-top' alt='...' width='60' height='250'/>
           <div className='card-body'>
             <NavLink className='titulos' exact to={'/error'}>
@@ -87,7 +87,7 @@ const Home=()=>{
           </div>
         </div>
 
-        <div className='card card-s col-lg-3 mx-4 my-3' >
+        <div className='card card-s col-lg-3 mx-4 my-3'>
           <img src={Image.card6} className='card-img-top' alt='...' width='60' height='250'/>
           <div className='card-body'>
             <NavLink className='titulos' exact to={'/error'}>
