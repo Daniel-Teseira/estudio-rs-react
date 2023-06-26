@@ -2,39 +2,14 @@ import { NavLink } from 'react-router-dom'
 import Image from '../../images/image.js'
 import './Home.css'
 import React from 'react'
+import Carrusel from '../../components/Carrusel/Carrusel.js'
 
 const Home=()=>{ 
   return(        
+    <>
+    <Carrusel/>
     <section className='cuerpo'>
-
-      <section className='d-flex flex-row flex-wrap  col-lg-12 carrusel w-100 align-items-center'>
-        <div id='carouselExampleInterval' className='carousel slide' data-bs-ride='carousel'>
-          <div className='carousel-inner'>
-            <div className='carousel-item active' data-bs-interval='7500'>
-              <img src={Image.carrusel1} className='d-block w-100' alt='...'/>
-            </div>
-
-            <div className='carousel-item'>
-              <img src={Image.carrusel2} className='d-block w-100' alt='...'/>
-            </div>
-
-            <div className='carousel-item'>
-              <img src={Image.carrusel3} className='d-block w-100' alt='...'/>
-            </div>
-
-          </div>
-
-          <button className='carousel-control-prev' type='button' data-bs-target='#carouselExampleInterval' data-bs-slide='prev'>
-            <span className='carousel-control-prev-icon' aria-hidden='true'></span>
-            <span className='visually-hidden'>Anterior</span>
-          </button>
-          <button className='carousel-control-next' type='button' data-bs-target='#carouselExampleInterval' data-bs-slide='next'>
-            <span className='carousel-control-next-icon' aria-hidden='true'></span>
-            <span className='visually-hidden'>Siguiente</span>
-          </button>
-        </div>
-      </section>
-
+      
       <section className='d-flex flex-row flex-wrap justify-content-center col-lg-12 cards py-5'>
 
         <div className='card col-lg-3 mx-4 my-3'>
@@ -118,7 +93,7 @@ const Home=()=>{
         </div> */}
       </section>
     </section>
-    
+    </>
   )
 }
 
