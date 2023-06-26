@@ -12,6 +12,7 @@
   --bs-navbar-color: black !important;
   --bs-navbar-hover-color: black !important;
   --bs-navbar-brand-color: black !important;
+  z-index: 100 !important;
 }
 
 .dropdown-menu{
