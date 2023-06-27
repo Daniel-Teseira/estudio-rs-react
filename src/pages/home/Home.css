@@ -8,35 +8,31 @@
 }
 
 .card11{
-  max-width: 540px;
   background-color: var(--bg-body-color);
 }
 
+.imgss{
+  height: 70vh !important;
+  object-fit: cover;
+  width:100%;
+  height:100%;
+}
 .cardss {
   overflow: hidden;
-  position: relative;
-  display: inline-block;
-  height: 400px;
-  width: 600px;
-}
-.img-container {
-  transition: transform .1s ease;
 }
 
 .img-container:hover {
-  transform: scale(1.1);
-  /*
-  Change the scale value as much as you want to change the amount of zoom on hover.
-  */
+  transform: scale(1.2); 
 }
 
 .cardss img {
-  opacity: .5;
-  transform: translate(0,0);
-  /*
-  Change the opacity value to change how "faded" you want the image to appear when it is not hovered.
-  */
+  opacity: .8;
+  transform: translate(0,0);   
   transition: opacity .25s ease-in-out;
+}
+
+.img-container {
+  transition: all .4s ease;
 }
 
 .cardss img:hover {
@@ -52,9 +48,6 @@
   text-decoration: none;
 }
 
-/* .card img{
-  object-fit: cover;  
-} */
 
 @media screen and (max-width:992px){
 .cuerpo{
