@@ -11,6 +11,11 @@
   background-color: var(--bg-body-color);
 }
 
+.card11 p{
+  text-align: justify;
+  padding: 0rem 4rem;
+}
+
 .imgss{
   height: 70vh !important;
   object-fit: cover;
@@ -50,8 +55,20 @@
 
 
 @media screen and (max-width:992px){
-.cuerpo{
-  padding: 5rem 7rem 0rem 7rem;
+  .cuerpo{
+    padding: 5rem 7rem 0rem 7rem;
+    }
+  .card1{
+    display: flex;
+    flex-direction: column !important;
+  }  
+  .card11 p{
+    text-align: justify;
+    padding: 0rem 2rem;
+  }
+  .img-container{
+    height:100%;
+    margin: 1rem 1rem;
   }
 } 
 
@@ -59,7 +76,6 @@
   .cuerpo{
     padding: 0rem 10rem 0rem 10rem;
   }  
-
   .card-title {
     color: white;
     background-image: linear-gradient(currentColor, currentColor);
@@ -70,24 +86,14 @@
     text-decoration: none;
     /* font-size: calc(1.359375rem + 1.3125vw); */
     font-family: "Nunito Sans", sans-serif;
-  }
-  
+  }  
   .card-title:hover, .card-title:focus {
       background-size: 100% 2px;
   }
-  .dropdown-menu:after{
-    display: block;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 1s ease-in;
-    visibility: visible;
-  }
-  .divider_1{
-    display: none;
-  }
-  .navbar-toggler-icon:hover{
-    text-decoration: none;
-  }
+  .card1{
+    display: flex;
+    flex-direction: row;
+  } 
 }
 @media screen and (max-width:768px){
   .cuerpo{
