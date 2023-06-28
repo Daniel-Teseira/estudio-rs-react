@@ -1,10 +1,9 @@
 import './footer.css'
 
-const Footer = ({name}) =>{
-// const {pathname}= useLocation()
+const Footer = () =>{
   return(
     <footer>
-      <section className='d-flex flex-row flex-wrap justify-content-center col-lg-12'>
+      <section className='d-flex flex-row flex-wrap justify-content-center col-lg-12 bg-black'>
         <footer className='pie-pagina'>
           <div className='grupo-1 py-4'>           
     
