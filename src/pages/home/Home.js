@@ -20,10 +20,10 @@ const Home=()=>{
 
   const handleMouseMove = (event) => {
     if (!zoom) {
-      const mousex = event.pageX - event.currentTarget.offsetLeft;
-      const mousey = event.pageY - event.currentTarget.offsetTop;
-      const imgx = (mousex - event.currentTarget.offsetWidth / 500) / 40;
-      const imgy = (mousey - event.currentTarget.offsetHeight / 500) / 40;
+      const mousex = event.pageX + event.currentTarget.offsetLeft;
+      const mousey = event.pageY + event.currentTarget.offsetTop;
+      const imgx = (mousex + event.currentTarget.offsetWidth / 500) / 40;
+      const imgy = (mousey + event.currentTarget.offsetHeight / 500) / 40;
       setTransform({ x: imgx, y: imgy });
     }
   };
