@@ -53,7 +53,7 @@ const Home=()=>{
               </div>             */}
               
               {Data.map( title, description => (
-                <Card description={Data.description} title={Data.title}/>
+                <Card description={description} title={title}/>
               ))}
             </div>
           </NavLink>        
