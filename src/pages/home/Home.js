@@ -34,7 +34,7 @@ const Home=()=>{
       <Carrusel/>          
         <div className='container card11 p-0 my-5' data-aos-duration='700' data-aos='fade-up'  >  
           <NavLink className='titulos' exact to={'/error'}>  
-            <div class='card1 justify-content-center col-12 '>          
+                      
               {/* <div class='cardss col-lg-6 col-xl-6 col-xxl-6'>
                 <div class='img-container'>
                   <img 
@@ -53,12 +53,14 @@ const Home=()=>{
               </div>             */}
               
               {
-                Data.map((Data)=>(              
-                <Card description={Data.description} title={Data.title}/>
+                Data.length===0
+                ? <h3 className='mt-5 text-white'> Cargando... </h3>
+                : Data?.map((aux) => (              
+                  <Card description={aux.description} title={aux.title} {...aux}/>                
               ))}
               
               
-            </div>
+            
           </NavLink>        
         </div>  
       </>
