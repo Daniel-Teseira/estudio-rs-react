@@ -1,33 +1,33 @@
-import { NavLink } from 'react-router-dom'
-import Image from '../../images/image.js'
 import './Home.css'
-import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import Carrusel from '../../components/Carrusel/Carrusel.js'
-import Data from '../../json/Data.js'
+// import Image from '../../images/image.js'
+// import React, { useState } from 'react'
+import Data from '../../json/Data.json'
+import Card  from '../../components/Card/Card.js'
 
 const Home=()=>{   
-  const [transform, setTransform] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(false);
+  // const [transform, setTransform] = useState({ x: 0, y: 0 });
+  // const [zoom, setZoom] = useState(false);
 
-  const handleMouseEnter = () => {
-    setZoom(true);
-  };
+  // const handleMouseEnter = () => {
+  //   setZoom(true);
+  // };
 
-  const handleMouseLeave = () => {
-    setZoom(false);
-    setTransform({ x: 0, y: 0 });
-  };
+  // const handleMouseLeave = () => {
+  //   setZoom(false);
+  //   setTransform({ x: 0, y: 0 });
+  // };
 
-  const handleMouseMove = (event) => {
-    if (!zoom) {
-      const mousex = event.pageX + event.currentTarget.offsetLeft;
-      const mousey = event.pageY + event.currentTarget.offsetTop;
-      const imgx = (mousex + event.currentTarget.offsetWidth / 500) / 40;
-      const imgy = (mousey + event.currentTarget.offsetHeight / 500) / 40;
-      setTransform({ x: imgx, y: imgy });
-    }
-  };
-
+  // const handleMouseMove = (event) => {
+  //   if (!zoom) {
+  //     const mousex = event.pageX + event.currentTarget.offsetLeft;
+  //     const mousey = event.pageY + event.currentTarget.offsetTop;
+  //     const imgx = (mousex + event.currentTarget.offsetWidth / 500) / 40;
+  //     const imgy = (mousey + event.currentTarget.offsetHeight / 500) / 40;
+  //     setTransform({ x: imgx, y: imgy });
+  //   }
+  // };
 
     return(        
       <>
@@ -52,9 +52,12 @@ const Home=()=>{
                 </div>
               </div>             */}
               
-              {Data.map( title, description => (
-                <Card description={description} title={title}/>
+              {
+                Data.map((Data)=>(              
+                <Card description={Data.description} title={Data.title}/>
               ))}
+              
+              
             </div>
           </NavLink>        
         </div>  

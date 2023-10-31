@@ -1,8 +1,10 @@
 
-const Card = ({ title, description}) => {
+const Card = ({description,title}) => {
   return (
+    console.log(description),
+    <>
     <div class='card1 justify-content-center col-12 '>          
-      <div class='cardss col-lg-6 col-xl-6 col-xxl-6'>
+      {/* <div class='cardss col-lg-6 col-xl-6 col-xxl-6'>
         <div class='img-container'>
           <img 
             src={Image.card1} 
@@ -17,17 +19,18 @@ const Card = ({ title, description}) => {
             }}
           />
         </div>
-      </div>            
+      </div>             */}
       
       <div className='d-flex flex-column align-items-center justify-content-center' >            
           <h4 className='d-flex text-white card-title'>
-            { title }
+            { title }            
           </h4>              
           <p className='d-flex text-white'>
-            { description }
+            { description}
           </p>
       </div>
     </div>
+    </>
   )
 }
 
