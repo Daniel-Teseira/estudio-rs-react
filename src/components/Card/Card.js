@@ -2,16 +2,33 @@ import React from 'react'
 import './Card.css'
 const Card = ({description,title}) => {
   return (
-    <div className='origincard'>
-    <div className="card card11  text-white">
+    <div className="card11 text-white" data-aos-duration='700' data-aos='fade-up' >
       {/* <img src={image} className="card-img-top" alt={ title } /> */}
-      <div className="card-body bg-black card22">
+       {/* <div class='cardss col-lg-6 col-xl-6 col-xxl-6'>
+        <div class='img-container'>
+          <img 
+            src={Image.card1} 
+            className='imgss' 
+            alt='...' 
+            oonMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onMouseMove={handleMouseMove}
+            style={{
+              transform: `scale(${zoom ? 1.5 : 1}) translate(${transform.x}px, ${transform.y}px)`,
+              transition: 'transform 0.3s',
+            }}/>
+          </div>
+        </div>
+      */}
+
+      <div className="card-body bg-black card22 py-5">
         <h5 className="card-title">{ title }</h5>
         <p className="card-text">{ description }</p>
         {/* <a href="/" className="btn btn-primary">{ buttonLabel || 'Comprar' }</a> */}
       </div>
+
     </div>
-    </div>
+    
 
     // <div class='card1 justify-content-center col-12 '>
     //   <div class='card1 justify-content-center col-12 '>          

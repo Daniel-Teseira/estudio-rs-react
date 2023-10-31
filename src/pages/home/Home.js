@@ -31,36 +31,20 @@ const Home=()=>{
 
     return(        
       <>
-      <Carrusel/>          
-        <div className='container card11 p-0 my-5' data-aos-duration='700' data-aos='fade-up'  >  
-          <NavLink className='titulos' exact to={'/error'}>  
-                      
-              {/* <div class='cardss col-lg-6 col-xl-6 col-xxl-6'>
-                <div class='img-container'>
-                  <img 
-                    src={Image.card1} 
-                    className='imgss' 
-                    alt='...' 
-                    oonMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    onMouseMove={handleMouseMove}
-                    style={{
-                      transform: `scale(${zoom ? 1.5 : 1}) translate(${transform.x}px, ${transform.y}px)`,
-                      transition: 'transform 0.3s',
-                    }}
-                  />
-                </div>
-              </div>             */}
-              
-              {
-                Data.length===0
-                ? <h3 className='mt-5 text-white'> Cargando... </h3>
-                : Data?.map((aux) => (              
-                  <Card description={aux.description} title={aux.title} {...aux}/>                
-              ))}
-              
-              
-            
+      <Carrusel/>
+        <div className='container p-0 my-5'>  
+          <NavLink className='titulos' exact to={'/error'}>            
+            {
+              Data.length===0
+              ? <h3 className='mt-5 text-white'> Cargando...</h3>
+              : Data.map((aux) => (              
+                <Card 
+                  description={aux.description} 
+                  title={aux.title}  
+                  {...aux}
+                />                
+              ))
+            }           
           </NavLink>        
         </div>  
       </>

@@ -6,10 +6,15 @@
 .card11 {
   justify-content: center;
   margin: 5rem 0rem;
-}
-
-.card11{
-  border-radius: 8px;
+ 
 }
 
 
+.card22 h5{
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+.card22{
+  border-radius: 1rem ;
+}
