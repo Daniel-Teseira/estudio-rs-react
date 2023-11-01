@@ -9,7 +9,7 @@ import Img7 from './body/laboral/__C__mo-opera-el-derecho-laboral-en-M__xico_.jp
 import Img8 from './body/previcional/pexels-kampus-production-8829201 (3).jpg';
 import Img9 from './body/dañosYperjuicios/factor-humano-causa-accidentes-transito.jpg';
 import Img10 from './body/prescipcionAdquisitiva/prescripcion-adquisitiva-de-dominio.jpg';
-import Img11 from './body/consumidor/indice-nacional-de-precios-al.webp';
+// import Img11 from './body/consumidor/indice-nacional-de-precios-al.webp';
 import Img12 from './body/acuerdosExtrajudiciales/pexels-pixabay-48148.jpg';
 export default {
   "nav1": Img1,
@@ -22,6 +22,6 @@ export default {
   "card3": Img8,
   "card4": Img9,
   "card5": Img10,
-  "card6": Img11,
+  // "card6": Img11,
   "card7": Img12
 }

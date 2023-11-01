@@ -1,8 +1,6 @@
 import './Home.css'
 import { NavLink } from 'react-router-dom'
 import Carrusel from '../../components/Carrusel/Carrusel.js'
-// import Image from '../../images/image.js'
-// import React, { useState } from 'react'
 import Data from '../../json/Data.json'
 import Card  from '../../components/Card/Card.js'
 
@@ -41,6 +39,7 @@ const Home=()=>{
                 <Card 
                   description={aux.description} 
                   title={aux.title}  
+                  image={aux.picture}
                   {...aux}
                 />                
               ))

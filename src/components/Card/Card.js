@@ -1,8 +1,13 @@
 import React from 'react'
 import './Card.css'
-const Card = ({description,title}) => {
+
+// import React, { useState } from 'react'
+
+const Card = ({description,title,image}) => {
   return (
     <div className="card11 text-white" data-aos-duration='700' data-aos='fade-up' >
+      
+
       {/* <img src={image} className="card-img-top" alt={ title } /> */}
        {/* <div class='cardss col-lg-6 col-xl-6 col-xxl-6'>
         <div class='img-container'>
@@ -22,6 +27,7 @@ const Card = ({description,title}) => {
       */}
 
       <div className="card-body bg-black card22 py-5">
+        <img src={image} className="card-img-top" alt={ title } />
         <h5 className="card-title">{ title }</h5>
         <p className="card-text">{ description }</p>
         {/* <a href="/" className="btn btn-primary">{ buttonLabel || 'Comprar' }</a> */}

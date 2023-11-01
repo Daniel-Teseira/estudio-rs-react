@@ -1,8 +1,9 @@
-
 [
     {
       "title": "Familia",
-      "description": "El derecho de familia es una rama del derecho que se ocupa de regular las relaciones familiares y los aspectos legales que las rodean. Incluye asuntos como matrimonio, divorcio, custodia de hijos, adopción, patria potestad y sucesiones. El objetivo principal del derecho de familia es proteger los derechos y deberes de los miembros de la familia, promoviendo el bienestar de los niños y buscando soluciones equitativas para los conflictos familiares. Este campo legal abarca la creación y disolución de matrimonios, la determinación de la filiación, la distribución de bienes y la protección de los derechos de los cónyuges y los hijos."     
+      "description": "El derecho de familia es una rama del derecho que se ocupa de regular las relaciones familiares y los aspectos legales que las rodean. Incluye asuntos como matrimonio, divorcio, custodia de hijos, adopción, patria potestad y sucesiones. El objetivo principal del derecho de familia es proteger los derechos y deberes de los miembros de la familia, promoviendo el bienestar de los niños y buscando soluciones equitativas para los conflictos familiares. Este campo legal abarca la creación y disolución de matrimonios, la determinación de la filiación, la distribución de bienes y la protección de los derechos de los cónyuges y los hijos.",
+      "picture":"../body/familia/pexels-victoria-akvarel-1648387 (1).jpg",
+      "Nombre":"familia" 
     },
     {
       "title": "Laboral",
