@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import Carrusel from '../../components/Carrusel/Carrusel.js'
 import Data from '../../json/Data.json'
 import Card  from '../../components/Card/Card.js'
+import React from 'react';
 
 const Home=()=>{   
   // const [transform, setTransform] = useState({ x: 0, y: 0 });
@@ -35,15 +36,16 @@ const Home=()=>{
             {
               Data.length===0
               ? <h3 className='mt-5 text-white'> Cargando...</h3>
-              : Data.map((aux) => (              
-                <Card 
-                  description={aux.description} 
-                  title={aux.title}  
-                  image={aux.picture}
-                  {...aux}
-                />                
-              ))
-            }           
+              : Data.servicio.map((aux) => (              
+                  <Card 
+                    description={aux.description} 
+                    title={aux.title}  
+                    image={aux.picture}                    
+                    {...aux}
+                  />                              
+                  ))
+                   
+            }                  
           </NavLink>        
         </div>  
       </>

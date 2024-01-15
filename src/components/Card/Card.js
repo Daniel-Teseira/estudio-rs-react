@@ -3,7 +3,7 @@ import './Card.css'
 
 // import React, { useState } from 'react'
 
-const Card = ({description,title,image}) => {
+const Card = ({description,title,picture,nombre}) => {
   return (
     <div className="card11 text-white" data-aos-duration='700' data-aos='fade-up' >
       
@@ -27,7 +27,11 @@ const Card = ({description,title,image}) => {
       */}
 
       <div className="card-body bg-black card22 py-5">
-        <img src={image} className="card-img-top" alt={ title } />
+        <img 
+          className="card-img-top" 
+          src={require(`../../assets/images/${picture}`)}           
+          alt={ nombre } 
+        />
         <h5 className="card-title">{ title }</h5>
         <p className="card-text">{ description }</p>
         {/* <a href="/" className="btn btn-primary">{ buttonLabel || 'Comprar' }</a> */}
