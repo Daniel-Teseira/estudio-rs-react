@@ -17,3 +17,9 @@
 .card22{
   border-radius: 1rem ;
 }
+
+.img-card{
+  height: 40vw!important;
+  object-fit: cover;
+  width: 100%;
+}

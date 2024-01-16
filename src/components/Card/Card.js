@@ -28,7 +28,7 @@ const Card = ({description,title,picture,nombre}) => {
 
       <div className="card-body bg-black card22 py-5">
         <img 
-          className="card-img-top" 
+          className="card-img-top img-card" 
           src={require(`../../assets/images/${picture}`)}           
           alt={ nombre } 
         />
