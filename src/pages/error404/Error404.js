@@ -1,8 +1,34 @@
 import './Error404.css'
+import { NavLink } from 'react-router-dom'
 
 const Error404=()=>{ 
     return( 
-        <h1>Error404</h1>        
+        
+        <section class="page_404">
+            <div class="container">
+                <div class="row"> 
+                    <div class="col-sm-12 ">
+                        <div class="col-sm-12 col-sm-offset-1 text-center">
+                            <div class="four_zero_four_bg col-12">
+                                <h1 class="text-center ">ERROR 404</h1> 
+                            </div>
+                            <div class="contant_box_404">
+                                <h3 class="h2">
+                                    Parece que estás perdido
+                                </h3>                        
+                                <p>¡La página que estás buscando no está disponible!</p>   
+                                <NavLink exact to={'/home'}>
+                                    <span class="link_404">
+                                    Volver al MENU
+                                    </span>  
+                                </NavLink> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>  
+           
     )
 }
 
