@@ -1,0 +1,25 @@
+.card11 p{
+  text-align: justify;
+  padding: 0rem 4rem;
+}
+
+.card11 {
+  justify-content: center;
+  margin: 5rem 0rem;
+ 
+}
+
+.card22 h5{
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+.card22{
+  border-radius: 1rem ;
+}
+
+.img-card{
+  height: 40vw!important;
+  object-fit: cover;
+  width: 100%;
+}
