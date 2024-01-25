@@ -1,6 +1,6 @@
 import './Home.css'
 import { NavLink } from 'react-router-dom'
-import Carrusel from '../../components/Carrusel/Carrusel.js'
+import Carrusel from '../../components/Carrusel/js.jsx'
 import Data from '../../json/Data.json'
 import Card  from '../../components/Card/Card.js'
 import React from 'react';
