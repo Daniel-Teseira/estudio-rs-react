@@ -4,11 +4,7 @@ import Img3 from './body/pexels-ekaterina-bolovtsova-6077447.jpg';
 import Img4 from './body/pexels-pixabay-159832.jpg';
 import Img5 from './body/pexels-amine-msiouri-2246258.jpg';
 
-<<<<<<< HEAD
-import Img6 from './body/familia/principal-1.jpg';
-=======
 // import Img6 from './body/familia/familia-1.jpg';
->>>>>>> 122f93b2c75eadb67b25c1222e8230794d94b1b6
 import Img7 from './body/laboral/__C__mo-opera-el-derecho-laboral-en-M__xico_.jpg';
 import Img8 from './body/previcional/pexels-kampus-production-8829201 (3).jpg';
 import Img9 from './body/dañosYperjuicios/factor-humano-causa-accidentes-transito.jpg';
