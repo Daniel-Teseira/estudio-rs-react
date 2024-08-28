@@ -17,3 +17,11 @@
 .card22{
   border-radius: 1rem ;
 }
+
+.img-card{
+    /*width: 100%;       /* Ajusta el ancho al 100% del contenedor */
+    /*height: auto;      /* Mantiene la relación de aspecto de la imagen */
+    /*max-width: 100%;  /* Ancho máximo fijo */
+    max-height: 70vh !important; /*Altura máxima fija*/
+    object-fit: cover; /* Ajusta la imagen para cubrir el área del contenedor sin distorsionar */ 
+}

@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import Image from '../../images/image.js'
 import './Carrusel.css'
 
