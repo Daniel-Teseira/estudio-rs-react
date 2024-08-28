@@ -1,124 +1,16 @@
-.cardss {
-  overflow: hidden;
-}
-.img-container:hover {
-  transform: scale(1.2); 
-}
-.cardss img {
-  opacity: .8;
-  transform: translate(0,0);   
-  transition: opacity .25s ease-in-out;
-}
-.img-container {
-  transition: all .4s ease;
-}
-.cardss img:hover {
-  opacity: 1;
-}
-.card-title, .card-text {
-  color: rgb(0, 0, 0) !important;
-  font-family: "Nunito Sans", sans-serif;
-}
-.img-card{
-  height: 30vw!important;
-  object-fit: cover;
-  width: 100%;
-}
 .card11 {
   justify-content: center;
   margin: 5rem 0rem;
 }
 
-@media screen and (max-width:993px){
-  .cardss {
-    overflow: hidden;
-  }  
-  .img-container:hover {
-    transform: scale(1.2); 
-  }  
-  .cardss img {
-    opacity: .8;
-    transform: translate(0,0);   
-    transition: opacity .25s ease-in-out;
-  }  
-  .img-container {
-    transition: all .4s ease;
-  }  
-  .cardss img:hover {
-    opacity: 1;
-  }  
-  .card-title, .card-text {
-    color: rgb(0, 0, 0) !important;
-    font-family: "Nunito Sans", sans-serif;
-  }
-  .img-card{
-    height: 30vw!important;
-    object-fit: cover;
-    width: 100%;
-  }
+.card22{ 
+  border-radius: 1rem ;
 }
-  
-  @media screen and (max-width:992px){
-    .card1{
-      display: flex;
-      flex-direction: column !important;
-    }  
-    .card11 p{
-      text-align: justify;
-      padding: 0rem 2rem;
-    }
-    .img-container{
-      height:100%;
-      margin: 1rem 1rem;
-    }
-  } 
-  
-  @media screen and (min-width:993px){   
-    .card-title {
-      color: white;
-      background-image: linear-gradient(currentColor, currentColor);
-      background-position: 0% 100%;
-      background-repeat: no-repeat;
-      background-size: 0px 6%;
-      transition: background-size .5s;
-      text-decoration: none;
-      /* font-size: calc(1.359375rem + 1.3125vw); */
-      font-family: "Nunito Sans", sans-serif;
-    }  
-    .card-title:hover, .card-title:focus {
-        background-size: 100% 2px;
-    }
-    .card1{
-      display: flex;
-      flex-direction: row;
-    } 
-  }
- 
-  @media screen and (max-width:576px){   
-  .card1{
-    display: flex;
-    flex-direction: column !important;
-  }  
-  .card11 p{
-    text-align: justify;
-    padding: 0rem 2rem;
-  }
-  .img-container{
-    height:100%;
-    margin: 1rem 1rem;
-  }
-} 
 
-@media screen and (min-width:993px){  
-  .card-title {
-    color: white;
-    background-image: linear-gradient(currentColor, currentColor);
-    background-position: 0% 100%;
-    background-repeat: no-repeat;
-    background-size: 0px 6%;
-    transition: background-size .5s;
-    text-decoration: none;
-    /* font-size: calc(1.359375rem + 1.3125vw); */
-    font-family: "Nunito Sans", sans-serif;
-  }   
+.img-card{
+    /*width: 100%;       /* Ajusta el ancho al 100% del contenedor */
+    /*height: auto;      /* Mantiene la relación de aspecto de la imagen */
+    /*max-width: 100%;  /* Ancho máximo fijo */
+    max-height: 70vh !important; /*Altura máxima fija*/
+    object-fit: cover; /* Ajusta la imagen para cubrir el área del contenedor sin distorsionar */ 
 }
