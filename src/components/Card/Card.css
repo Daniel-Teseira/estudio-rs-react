@@ -19,9 +19,15 @@
 }
 
 .img-card{
+<<<<<<< HEAD
     /*width: 100%;       /* Ajusta el ancho al 100% del contenedor */
     /*height: auto;      /* Mantiene la relación de aspecto de la imagen */
     /*max-width: 100%;  /* Ancho máximo fijo */
     max-height: 70vh !important; /*Altura máxima fija*/
     object-fit: cover; /* Ajusta la imagen para cubrir el área del contenedor sin distorsionar */ 
+=======
+  height: 40vw!important;
+  object-fit: cover;
+  width: 100%;
+>>>>>>> 122f93b2c75eadb67b25c1222e8230794d94b1b6
 }
