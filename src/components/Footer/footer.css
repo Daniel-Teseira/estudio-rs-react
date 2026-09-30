@@ -1,54 +1,152 @@
-.pie-pagina{
-    width: 100%;
+.site-footer {
+  color: #f5f3ee;
+  background:
+    radial-gradient(ellipse at 82% 0%, rgba(152, 123, 73, 0.12), transparent 38%),
+    #171715;
 }
-.pie-pagina .grupo-1 .box figure img{
-  width: 250px;
+
+.site-footer__inner {
+  width: min(100% - 2rem, 70rem);
+  margin: 0 auto;
 }
-.pie-pagina .grupo-1 .box h2{
-  color: #f2f2f2;
-  margin-bottom: 25px;
-  font-size: 20px;
-  text-align: center;
+
+.site-footer__top {
+  display: flex;
+  min-height: 11rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2.5rem 0;
 }
-.pie-pagina .grupo-1 .box p{
-  color: #FFE7F5;
+
+.site-footer__identity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
-.pie-pagina .grupo-1 .red-social{
-  width: auto;    
+
+.site-footer__monogram {
+  display: grid;
+  width: 3.5rem;
+  aspect-ratio: 1;
+  place-items: center;
+  color: #dfc28b;
+  border: 1px solid rgba(223, 194, 139, 0.55);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
 }
-.pie-pagina .grupo-1 .red-social a{
-  display: inline-block;
-  text-decoration: none;
-  width: 50px;
-  height: 50px;
-  line-height: 45px;
-  color: black;
-  margin-right: 10px;
-  background-color: #F2F2F2;
-  text-align: center;
-  transition: all 300ms ease;
+
+.site-footer__eyebrow {
+  margin: 0;
+  color: #c3a570;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+}
+
+.site-footer__name {
+  margin: 0.35rem 0 0;
+  color: #fff;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.2rem;
+}
+
+.site-footer__connect {
+  display: grid;
+  justify-items: end;
+  gap: 0.9rem;
+}
+
+.site-footer__socials {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.site-footer__socials a {
+  display: grid;
+  width: 2.65rem;
+  aspect-ratio: 1;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.77);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
+  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
 }
-.pie-pagina .grupo-1 .red-social a:hover{
-  transform: scale(1.5);
-  transition: all 0.5s;
-  z-index: 10;
+
+.site-footer__socials a:hover,
+.site-footer__socials a:focus-visible {
+  color: #dfc28b;
+  border-color: #987b49;
+  background: rgba(152, 123, 73, 0.12);
+  transform: translateY(-2px);
 }
-.pie-pagina .grupo-1 .red-social svg{
-  width: 35px;
-  height: 35px;
+
+.site-footer__socials svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
 }
-.pie-pagina .grupo-1 .red-social .fa-facebook:hover{
-  color: #0d6efd;
+
+.site-footer__socials .site-footer__icon-fill {
+  fill: currentColor;
+  stroke: none;
 }
-.pie-pagina .grupo-1 .red-social .fa-instagram:hover{
-  color: rgb(192, 19, 192); 
-}.pie-pagina .grupo-1 .red-social .fa-twitter:hover{
-  color: #9d0dfd;
-}.pie-pagina .grupo-1 .red-social .fa-youtube:hover{
-  color: rgb(0, 199, 106);
+
+.site-footer__bottom {
+  display: flex;
+  min-height: 3.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.72rem;
 }
-.pie-pagina .grupo-2 small{
-  font-size: 15px;
+
+.site-footer__bottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #dfc28b;
+  text-decoration: none;
+  transition: color 180ms ease;
 }
- 
+
+.site-footer__bottom a:hover,
+.site-footer__bottom a:focus-visible {
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .site-footer__top {
+    min-height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2.5rem 0;
+  }
+
+  .site-footer__connect {
+    justify-items: start;
+  }
+
+  .site-footer__bottom {
+    min-height: 4.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.75rem 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer__socials a,
+  .site-footer__bottom a { transition: none; }
+}

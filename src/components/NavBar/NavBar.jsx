@@ -1,74 +1,79 @@
 import './navbar.css';
 import Image from '../../images/image.js';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useLocation } from 'react-router-dom';
+import Data from '../../json/Data.json';
+import serviceSlug from '../../utils/serviceSlug';
+import TransitionLink from '../TransitionLink/TransitionLink';
+import { usePageTransition } from '../../context/PageTransitionContext';
 
 const NavBar = () => {
+  const { pathname } = useLocation();
+  const { animatedPath } = usePageTransition();
+  const isTransitionDestination = animatedPath === pathname;
+
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand href="/home">
-          <img src={Image.nav1} alt='Logo' width='30' height='24' className='d-inline-block align-text-top'/>
-          Estudio Juridico RS
-        </Navbar.Brand>
-        
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/home">Nosotros</Nav.Link>
-            <Nav.Link href="/home">Contacto</Nav.Link>
+    <nav
+      key={pathname}
+      className={`navbar navbar-expand-lg bg-body-tertiary${isTransitionDestination ? ' navbar--route-transition' : ''}`}
+    >
+      <div className="container">
+        <TransitionLink className="navbar-brand" to="/home">
+          <img
+            src={Image.nav1}
+            alt=""
+            width="30"
+            height="24"
+            className="d-inline-block align-text-top"
+          />{' '}
+          Estudio Jurídico RS
+        </TransitionLink>
 
-            <NavDropdown title="Servicios" id="collasible-nav-dropdown">
-              <section className='d-flex flex-column flex-lg-row flex-xl-row flex-xxl-row align-items-center'>
-                <section className='flex-column'>
-                  <img src={Image.nav2} alt='imagen'/>
-                </section>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#responsive-navbar-nav"
+          aria-controls="responsive-navbar-nav"
+          aria-expanded="false"
+          aria-label="Abrir navegación"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
 
-                <section className='flex-column'>
-                  <NavDropdown.Header>Familia</NavDropdown.Header>
-                  <NavDropdown.Item href="#action/3.1">Divorcio</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1">Alimentos</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1">Régimen De Visitas</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1">Guarda Legal</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1">Filiación</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Header>Acuerdos Extrajudiciales</NavDropdown.Header>
-                </section>
-
-                <section className='flex-column'>
-                  <NavDropdown.Header>Laboral</NavDropdown.Header>
-                  <NavDropdown.Item href="#action/3.1">Accidente De Trabajo</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1">Despidos</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Header>Previsional</NavDropdown.Header>
-                  <NavDropdown.Item href="#action/3.1">Jubilación</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1">Pensión</NavDropdown.Item>
-                </section>
-
-                <section className='flex-column'>
-                  <NavDropdown.Header>Daños Y Perjuicios</NavDropdown.Header>
-                  <NavDropdown.Item href="#action/3.1">Accidentes</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Header>Prescripción Adquisitiva</NavDropdown.Header>
-                  <NavDropdown.Item href="#action/3.1">Breve</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1">Larga</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Header>Consumidor</NavDropdown.Header>
-                </section>                
-              </section>
-            </NavDropdown>
-          </Nav>
-          {/* <Nav>
-            <Nav.Link href="#deets">More deets</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Dank memes
-            </Nav.Link>
-          </Nav> */}
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        <div className="collapse navbar-collapse" id="responsive-navbar-nav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <TransitionLink className="nav-link" to="/home">Nosotros</TransitionLink>
+            </li>
+            <li className="nav-item">
+              <TransitionLink className="nav-link" to="/contact">Contacto</TransitionLink>
+            </li>
+            <li className="nav-item dropdown">
+              <button
+                className="nav-link dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Servicios
+              </button>
+              <ul className="dropdown-menu">
+                {Data.map((service) => (
+                  <li key={service.id}>
+                    <TransitionLink
+                      className="dropdown-item"
+                      to={`/servicios/${serviceSlug(service.title)}`}
+                    >
+                      {service.title}
+                    </TransitionLink>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   );
 };
 

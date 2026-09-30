@@ -1,15 +1,26 @@
-import React from 'react';
 import './Card.css';
 
-const Card = ({ description, title, picture }) => {
+const Card = ({ description, title, picture, id, reverse = false }) => {
   return (
-    <div className="card11 text-white" data-aos-duration='700' data-aos='fade-up'>
-      <div className="card-body bg-black card22 py-5">
-        <img src={picture} className="card-img-top img-card" alt={title} />
-        <h5 className="card-title p-3 text-center">{title}</h5>
-        <p className="card-text px-5">{description}</p>
+    <article
+      className={`service-card${reverse ? ' service-card--reverse' : ''}`}
+      data-aos="fade-up"
+      data-aos-duration="700"
+    >
+      <div className="service-card__media">
+        <img src={picture} alt={`Área de práctica: ${title}`} />
+        <span className="service-card__number">{String(id).padStart(2, '0')}</span>
+        <span className="service-card__media-label">Estudio Jurídico RS</span>
       </div>
-    </div>
+      <div className="service-card__content">
+        <p className="service-card__eyebrow">Área de práctica</p>
+        <h2>{title}</h2>
+        <p className="service-card__description">{description}</p>
+        <span className="service-card__action">
+          Conocer servicio <span aria-hidden="true">→</span>
+        </span>
+      </div>
+    </article>
   );
 };
 
