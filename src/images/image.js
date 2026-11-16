@@ -1,15 +1,8 @@
-import Img1 from './balanceScale96.png';
-import Img2 from './law94.png';
-import Img3 from './body/pexels-ekaterina-bolovtsova-6077447.jpg';
-import Img4 from './body/pexels-pixabay-159832.jpg';
-import Img5 from './body/pexels-amine-msiouri-2246258.jpg';
-
 const images = {
-  "nav1": Img1,
-  "nav2": Img2,
-  "carrusel1": Img3,
-  "carrusel2": Img4,
-  "carrusel3": Img5
-}
+  nav1: '/images/icons8-balance-scale-48.png',
+  carousel1: '/images/home/justice-gavel-1920.webp',
+  carousel2: '/images/home/law-books-1920.webp',
+  carousel3: '/images/home/public-demonstration-1920.webp',
+};
 
 export default images;

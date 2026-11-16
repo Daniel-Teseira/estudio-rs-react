@@ -1,0 +1,16 @@
+{
+  "name": "Estudio Jurídico RS",
+  "short_name": "Estudio RS",
+  "lang": "es-AR",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f3ee",
+  "theme_color": "#171715",
+  "icons": [
+    {
+      "src": "/images/icons8-balance-scale-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ]
+}

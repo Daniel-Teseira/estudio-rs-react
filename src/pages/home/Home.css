@@ -13,6 +13,15 @@
   color: inherit;
 }
 
+.home-services__heading {
+  margin: 0 1rem;
+  color: #20201d;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+
 .home-carousel--waiting .carousel-item img {
   filter: blur(14px) brightness(80%);
   opacity: 0.72;

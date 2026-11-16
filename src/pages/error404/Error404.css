@@ -172,6 +172,11 @@
   background: rgba(152, 123, 73, 0.08);
 }
 
+.not-found-button:focus-visible {
+  outline: 3px solid #80643c;
+  outline-offset: 3px;
+}
+
 .not-found-card__reference {
   margin: 2.5rem 0 0;
   color: #99978f;

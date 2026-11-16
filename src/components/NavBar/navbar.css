@@ -14,12 +14,11 @@
   --bs-navbar-hover-color: #dfc28b;
   --bs-navbar-brand-color: #fff;
   --bs-navbar-brand-hover-color: #fff;
-  animation: navbar-enter 760ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+  animation: navbar-enter 500ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
 }
 
 .navbar.bg-body-tertiary.navbar--route-transition {
-  --route-nav-delay: 500ms;
-  animation-delay: var(--route-nav-delay);
+  --route-nav-delay: 0ms;
 }
 
 @keyframes navbar-enter {
@@ -119,19 +118,19 @@
 }
 
 .navbar.bg-body-tertiary .navbar-nav .nav-item {
-  animation: navbar-link-enter 600ms ease-out both;
+  animation: navbar-link-enter 300ms ease-out both;
 }
 
 .navbar.bg-body-tertiary .navbar-nav .nav-item:nth-child(1) {
-  animation-delay: calc(var(--route-nav-delay, 0ms) + 100ms);
+  animation-delay: calc(var(--route-nav-delay, 0ms) + 60ms);
 }
 
 .navbar.bg-body-tertiary .navbar-nav .nav-item:nth-child(2) {
-  animation-delay: calc(var(--route-nav-delay, 0ms) + 180ms);
+  animation-delay: calc(var(--route-nav-delay, 0ms) + 120ms);
 }
 
 .navbar.bg-body-tertiary .navbar-nav .nav-item:nth-child(3) {
-  animation-delay: calc(var(--route-nav-delay, 0ms) + 260ms);
+  animation-delay: calc(var(--route-nav-delay, 0ms) + 180ms);
 }
 
 @keyframes navbar-link-enter {
@@ -173,7 +172,8 @@
 }
 
 .navbar.bg-body-tertiary .dropdown-item:hover,
-.navbar.bg-body-tertiary .dropdown-item:focus {
+.navbar.bg-body-tertiary .dropdown-item:focus,
+.navbar.bg-body-tertiary .dropdown-item.active {
   padding-left: 1.05rem;
   color: #dfc28b;
   background: rgba(223, 194, 139, 0.1);
@@ -224,5 +224,10 @@
   .navbar.bg-body-tertiary .navbar-nav .nav-link::after,
   .navbar.bg-body-tertiary .dropdown-item {
     transition: none;
+  }
+
+  .navbar.bg-body-tertiary .navbar-nav a.nav-link:hover::after,
+  .navbar.bg-body-tertiary .navbar-nav a.nav-link:focus-visible::after {
+    transform: none;
   }
 }

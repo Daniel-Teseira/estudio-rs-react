@@ -9,7 +9,14 @@
   border: 1px solid rgba(23, 23, 23, 0.08);
   border-radius: 0.75rem;
   box-shadow: 0 22px 60px rgba(30, 28, 22, 0.09);
-  transition: box-shadow 220ms ease, transform 220ms ease;
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity 700ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.service-card--visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .home-service-link:hover .service-card {
@@ -162,5 +169,16 @@
   .service-card__media img,
   .service-card__action span {
     transition: none;
+  }
+
+  .service-card {
+    opacity: 1;
+    transform: none;
+  }
+
+  .home-service-link:hover .service-card,
+  .home-service-link:hover .service-card__media img,
+  .home-service-link:hover .service-card__action span {
+    transform: none;
   }
 }

@@ -10,6 +10,10 @@
 
 # production
 /build
+/dist
+/.vercel
+/public/images/home/
+/public/images/services/
 
 # misc
 .DS_Store
@@ -23,3 +27,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+/.nuc-server.pid
+/nuc-server.log

@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import Data from '../../json/Data.json';
 import serviceSlug from '../../utils/serviceSlug';
 import { usePageTransition } from '../../context/PageTransitionContext';
+import usePageMetadata from '../../hooks/usePageMetadata';
+import getResponsiveImageProps from '../../utils/responsiveImage';
 import './ServicePage.css';
 
 const ServicePage = () => {
@@ -10,6 +12,11 @@ const ServicePage = () => {
   const { phase, hasEntered } = usePageTransition();
   const service = Data.find((item) => serviceSlug(item.title) === slug);
   const showService = hasEntered || phase === 'revealing';
+
+  usePageMetadata(
+    service ? `${service.title} | Estudio Jurídico RS` : 'Servicio | Estudio Jurídico RS',
+    service ? service.description : 'Conocé las áreas de práctica de Estudio Jurídico RS.'
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -27,8 +34,9 @@ const ServicePage = () => {
       >
         <img
           className="service-hero__image"
-          src={service.picture}
-          alt={`Servicio de ${service.title}`}
+          {...getResponsiveImageProps(service.picture, '100vw')}
+          alt=""
+          fetchpriority="high"
         />
         <div className="service-hero__shade" />
         <div className="container service-hero__content">

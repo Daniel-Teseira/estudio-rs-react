@@ -1,7 +1,7 @@
 .contact-page {
   --contact-ink: #20201d;
   --contact-muted: #686761;
-  --contact-gold: #987b49;
+  --contact-gold: #80643c;
   width: min(100% - 2rem, 70rem);
   margin: 0 auto;
   padding: clamp(2rem, 6vw, 5rem) 0 clamp(3rem, 7vw, 6rem);
@@ -281,6 +281,14 @@
   cursor: pointer;
 }
 
+.contact-form__note {
+  max-width: 38rem;
+  margin: -0.55rem 0 0;
+  color: #77756f;
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+
 @keyframes contact-enter {
   from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
@@ -340,4 +348,6 @@
   .contact-details > a,
   .contact-form input,
   .contact-form textarea { transition: none; }
+  .contact-whatsapp:hover,
+  .contact-whatsapp:focus-visible { transform: none; }
 }

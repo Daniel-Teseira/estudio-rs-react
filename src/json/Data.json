@@ -1,33 +1,32 @@
 [
   {
+    "id": 1,
     "title": "Familia",
-    "description": "El derecho de familia es una rama del derecho que se ocupa de regular las relaciones familiares y los aspectos legales que las rodean...",
-    "picture": "/images/familia.jpg",
-    "Nombre": "familia",
-    "id": 1
+    "description": "Orientación y acompañamiento en asuntos de familia, con atención a las particularidades de cada situación.",
+    "picture": "/images/services/family-640.webp"
   },
   {
+    "id": 2,
     "title": "Laboral",
-    "description": "El derecho laboral, también conocido como derecho del trabajo, es una rama del derecho que regula las relaciones entre empleadores y trabajadores...",
-    "picture": "/images/laboral/laboral.jpg",  
-    "id": 2
+    "description": "Asesoramiento en consultas y conflictos vinculados con las relaciones de trabajo y los derechos de las personas involucradas.",
+    "picture": "/images/services/labor-600.webp"
   },
   {
+    "id": 3,
     "title": "Previsional",
-    "description": "El derecho previsional, también conocido como derecho de la seguridad social, es una rama del derecho que se ocupa de regular los sistemas de seguridad social y pensiones...",
-    "picture": "/images/previsional/previsional.jpg",  
-    "id": 3
+    "description": "Orientación en consultas y trámites relacionados con jubilaciones, pensiones y otras prestaciones de la seguridad social.",
+    "picture": "/images/services/social-security-1200.webp"
   },
   {
+    "id": 4,
     "title": "Prescripción Adquisitiva",
-    "description": "La prescripción adquisitiva, también conocida como prescripción positiva o usucapión, es una figura legal que permite adquirir la propiedad de un bien inmueble o un derecho real sobre el mismo...",
-    "picture": "/images/prescripcion/prescripcion.jpg",  
-    "id": 4
+    "description": "Asesoramiento en consultas sobre prescripción adquisitiva de inmuebles y revisión de los antecedentes de cada caso.",
+    "picture": "/images/services/acquisitive-prescription-1200.webp"
   },
   {
+    "id": 5,
     "title": "Acuerdos Extrajudiciales",
-    "description": "Los acuerdos extrajudiciales en el ámbito del derecho son acuerdos o convenios alcanzados entre las partes involucradas en un conflicto o disputa legal, sin la necesidad de recurrir a un proceso judicial...",
-    "picture": "/images/acuerdos/acuerdos.jpg", 
-    "id": 5
+    "description": "Asistencia en la negociación y formalización de acuerdos para abordar conflictos fuera de un proceso judicial, cuando resulte viable.",
+    "picture": "/images/services/extrajudicial-agreements-1200.webp"
   }
 ]

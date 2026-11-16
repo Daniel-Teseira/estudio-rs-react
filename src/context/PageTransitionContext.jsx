@@ -2,9 +2,9 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState } f
 import { useLocation, useNavigate } from 'react-router-dom';
 import './PageTransition.css';
 
-const COVER_DURATION = 500;
+const COVER_DURATION = 180;
 const SIMULATED_LOAD_DURATION = 500;
-const REVEAL_DURATION = 1150;
+const REVEAL_DURATION = 180;
 
 const PageTransitionContext = createContext(null);
 

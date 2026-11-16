@@ -1,0 +1,27 @@
+.site-error {
+  display: grid;
+  min-height: 65vh;
+  align-content: center;
+  justify-items: center;
+  padding: 4rem 1.5rem;
+  color: #26231f;
+  text-align: center;
+}
+
+.site-error__eyebrow {
+  color: #8d7551;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.site-error h1 {
+  margin: 0.4rem 0 1rem;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.site-error a {
+  margin-top: 1rem;
+  color: #725936;
+  font-weight: 600;
+}

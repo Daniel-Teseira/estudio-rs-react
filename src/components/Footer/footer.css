@@ -149,4 +149,6 @@
 @media (prefers-reduced-motion: reduce) {
   .site-footer__socials a,
   .site-footer__bottom a { transition: none; }
+  .site-footer__socials a:hover,
+  .site-footer__socials a:focus-visible { transform: none; }
 }

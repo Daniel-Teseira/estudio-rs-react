@@ -14,6 +14,7 @@ const NavBar = () => {
   return (
     <nav
       key={pathname}
+      aria-label="Navegación principal"
       className={`navbar navbar-expand-lg bg-body-tertiary${isTransitionDestination ? ' navbar--route-transition' : ''}`}
     >
       <div className="container">
@@ -43,14 +44,26 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="responsive-navbar-nav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <TransitionLink className="nav-link" to="/home">Nosotros</TransitionLink>
+              <TransitionLink
+                className={`nav-link${(pathname === '/' || pathname === '/home') ? ' active' : ''}`}
+                to="/home"
+                aria-current={(pathname === '/' || pathname === '/home') ? 'page' : undefined}
+              >
+                Inicio
+              </TransitionLink>
             </li>
             <li className="nav-item">
-              <TransitionLink className="nav-link" to="/contact">Contacto</TransitionLink>
+              <TransitionLink
+                className={`nav-link${pathname === '/contact' ? ' active' : ''}`}
+                to="/contact"
+                aria-current={pathname === '/contact' ? 'page' : undefined}
+              >
+                Contacto
+              </TransitionLink>
             </li>
             <li className="nav-item dropdown">
               <button
-                className="nav-link dropdown-toggle"
+                className={`nav-link dropdown-toggle${pathname.startsWith('/servicios/') ? ' active' : ''}`}
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -61,8 +74,9 @@ const NavBar = () => {
                 {Data.map((service) => (
                   <li key={service.id}>
                     <TransitionLink
-                      className="dropdown-item"
+                      className={`dropdown-item${pathname === `/servicios/${serviceSlug(service.title)}` ? ' active' : ''}`}
                       to={`/servicios/${serviceSlug(service.title)}`}
+                      aria-current={pathname === `/servicios/${serviceSlug(service.title)}` ? 'page' : undefined}
                     >
                       {service.title}
                     </TransitionLink>

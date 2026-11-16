@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# Estudio Jurídico RS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sitio institucional de una sola página creado con React, React Router y Vite.
 
-## Available Scripts
+## Requisitos
 
-In the project directory, you can run:
+- Node.js 24.x
+- npm
 
-### `npm start`
+## Desarrollo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+npm install
+npm run dev
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Producción
 
-### `npm test`
+```bash
+npm run build
+npm run preview
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Vite genera la versión desplegable en `dist/`. El postbuild renderiza cada ruta con React, deja metadatos específicos y prepara una página 404 estática. Vercel publica los archivos HTML con URLs limpias.
 
-### `npm run build`
+En Vercel, configurá Node.js `24.x` en **Project Settings → Build & Development Settings**. El proyecto usa `npm run build` y publica `dist/`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Para generar URLs canónicas, etiquetas completas para compartir y `sitemap.xml`, agregá `VITE_SITE_URL` en las variables de entorno de Vercel con el dominio público, por ejemplo `https://tu-dominio.com`. Mientras el sitio no tenga dominio, esos metadatos absolutos y el sitemap se omiten.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## NUC en el puerto 3004
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Con la compilación actual en `dist/`, ejecutá en PowerShell:
 
-### `npm run eject`
+```powershell
+& .\scripts\deploy-nuc.ps1
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+El script copia la versión compilada a `daniel@192.168.1.250:~/estudio-rs-react` y arranca `server.mjs` en `0.0.0.0:3004`. SSH solicita la contraseña para copiar y nuevamente para iniciar. Busca Node.js 18 o superior en el entorno y en NVM. Si falta, instala el binario oficial de Node.js 24 en `~/.local/share/estudio-rs/` después de verificar su SHA256, sin sudo ni cambios globales. Esta instalación requiere Linux x64 o arm64, curl o wget, tar y sha256sum. No requiere instalar las dependencias del proyecto. Para generar una compilación nueva, el proyecto sigue requiriendo Node.js 24.x y `npm run check`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Abrí `http://192.168.1.250:3004`. El servidor publica las rutas HTML renderizadas, las imágenes, el 404 y `/api/client-errors`. Conserva los encabezados de seguridad y permite HTTP en la red local. Los registros quedan en `~/estudio-rs-react/nuc-server.log`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+El proceso continúa al cerrar PowerShell o SSH. Después de reiniciar el NUC, ejecutá `cd ~/estudio-rs-react && bash scripts/start-nuc.sh` por SSH para volver a iniciarlo. El script comprueba el puerto y solo reinicia un proceso anterior si verifica que corresponde a este servidor.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Verificación
 
-## Learn More
+```bash
+npm test
+npm run check
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`npm run check` ejecuta las verificaciones de rutas e imágenes y luego compila y renderiza las páginas de producción.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Áreas de práctica
 
-### Code Splitting
+Las áreas, sus descripciones e imágenes se mantienen en `src/json/Data.json`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Imágenes
 
-### Analyzing the Bundle Size
+Las fuentes originales están en `src/assets/images/source/`. Cuando se actualicen, ejecutá:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+npm run images:optimize
+```
 
-### Making a Progressive Web App
+El script genera imágenes WebP optimizadas en `public/images/`, que son las que usa el sitio.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Ahora genera varios anchos por imagen; los componentes usan `srcset` y `sizes` para que el navegador elija la variante adecuada para cada pantalla.
 
-### Advanced Configuration
+## Seguridad y monitoreo en Vercel
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`vercel.json` configura encabezados de seguridad para el sitio. La función `api/client-errors.js` recibe errores del navegador y métricas de carga (FCP, LCP, CLS, TTFB, carga total e interacción máxima) y las escribe en los logs de funciones de Vercel. En producción, revisá **Vercel → Project → Logs** y filtrá por `client_error` o `client_performance`. Estos registros empiezan a aparecer después del despliegue; el sitio sigue usando WhatsApp para las consultas y no guarda datos del formulario.

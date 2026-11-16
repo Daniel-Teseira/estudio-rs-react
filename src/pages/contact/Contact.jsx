@@ -1,8 +1,14 @@
 import './Contact.css';
+import usePageMetadata from '../../hooks/usePageMetadata';
 
 const WHATSAPP_NUMBER = '543813019431';
 
 export const Contact = () => {
+  usePageMetadata(
+    'Contacto | Estudio Jurídico RS',
+    'Contactá a Estudio Jurídico RS para iniciar una consulta por WhatsApp o redes sociales.'
+  );
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -28,14 +34,14 @@ export const Contact = () => {
           <p className="contact-eyebrow">ESTAMOS PARA ACOMPAÑARTE</p>
           <h1 id="contact-title">Hablemos de tu situación.</h1>
           <p className="contact-lead">
-            Cada consulta merece atención y claridad. Contanos brevemente qué necesitás
-            y nos pondremos en contacto para orientarte.
+            Cada consulta merece atención y claridad. Elegí un canal y escribinos brevemente
+            qué necesitás para iniciar la conversación.
           </p>
           <a
             className="contact-whatsapp"
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             Escribir por WhatsApp <span aria-hidden="true">↗</span>
           </a>
@@ -47,11 +53,11 @@ export const Contact = () => {
           <p className="contact-eyebrow">CONTACTO DIRECTO</p>
           <h2>Estamos cerca.</h2>
           <p>Elegí el canal que te resulte más cómodo para iniciar tu consulta.</p>
-          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer">
+          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer">
             <span className="contact-details__label">WhatsApp</span>
             <span>+54 9 381 301-9431</span>
           </a>
-          <a href="https://www.instagram.com/rocio_sosa_97/" target="_blank" rel="noreferrer">
+          <a href="https://www.instagram.com/rocio_sosa_97/" target="_blank" rel="noopener noreferrer">
             <span className="contact-details__label">Instagram</span>
             <span>@rocio_sosa_97</span>
           </a>
@@ -63,7 +69,7 @@ export const Contact = () => {
           <p className="contact-form-card__description">
             Completá tus datos y prepararemos el mensaje para enviarlo por WhatsApp.
           </p>
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form className="contact-form" onSubmit={handleSubmit} aria-describedby="contact-form-delivery-note">
             <div className="contact-form__row">
               <label>
                 Nombre
@@ -85,6 +91,11 @@ export const Contact = () => {
             <button type="submit" className="contact-whatsapp contact-form__submit">
               Preparar mensaje <span aria-hidden="true">→</span>
             </button>
+            <p className="contact-form__note" id="contact-form-delivery-note">
+              Al continuar, se abrirá WhatsApp con el mensaje preparado. Solo se enviará
+              cuando lo confirmes desde esa aplicación. Evitá incluir documentación o datos
+              sensibles en el primer mensaje.
+            </p>
           </form>
         </div>
       </section>
