@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from './router';
 import '@fontsource/quattrocento/400.css';
 import './styles/bootstrap.scss';
 import './styles/tokens.css';
@@ -17,9 +17,9 @@ const rootElement = document.getElementById('root');
 const app = (
   <React.StrictMode>
     <ErrorBoundary>
-      <BrowserRouter>
+      <Router>
         <App />
-      </BrowserRouter>
+      </Router>
     </ErrorBoundary>
   </React.StrictMode>
 );

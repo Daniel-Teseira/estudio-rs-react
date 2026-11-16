@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from '../../router';
 import './Contact.css';
 import services from '../../data/services.json';
 import studio from '../../data/studio.json';

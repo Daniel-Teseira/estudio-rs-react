@@ -8,6 +8,7 @@ import vercel from '../vercel.json' with { type: 'json' };
 import { getResponsiveImageProps, imageUrl } from '../src/utils/responsiveImage.js';
 import { legacyRedirects } from '../src/routes.js';
 import { whatsappUrl } from '../src/utils/whatsapp.js';
+import matchPath from '../src/router/matchPath.js';
 
 test('las áreas tienen slugs únicos y direcciones legibles', () => {
   const slugs = services.map((service) => service.slug);
@@ -63,6 +64,17 @@ test('los scripts de PowerShell tienen exactamente un BOM UTF-8', async () => {
     assert.deepEqual([...bytes.subarray(0, 3)], [0xef, 0xbb, 0xbf], `${name} debe empezar con BOM`);
     assert.notDeepEqual([...bytes.subarray(3, 6)], [0xef, 0xbb, 0xbf], `${name} tiene el BOM duplicado`);
   }
+});
+
+test('el router reconoce rutas fijas, parámetros y el comodín', () => {
+  assert.deepEqual(matchPath('/', '/'), {});
+  assert.deepEqual(matchPath('/contacto', '/contacto/'), {});
+  assert.equal(matchPath('/contacto', '/contacto/extra'), null);
+  assert.deepEqual(matchPath('/servicios/:slug', '/servicios/laboral'), { slug: 'laboral' });
+  assert.deepEqual(matchPath('/servicios/:slug', '/servicios/a%C3%B1o'), { slug: 'año' });
+  assert.equal(matchPath('/servicios/:slug', '/servicios/%E0%A4%A'), null, 'una URL mal codificada no coincide');
+  assert.equal(matchPath('/servicios/:slug', '/servicios'), null);
+  assert.deepEqual(matchPath('*', '/cualquier/cosa'), {});
 });
 
 test('el enlace de WhatsApp codifica el mensaje', () => {

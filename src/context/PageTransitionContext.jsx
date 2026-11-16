@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate, useNavigationType } from 'react-router-dom';
+import { useLocation, useNavigate, useNavigationType } from '../router';
 import './PageTransition.css';
 
 const COVER_DURATION = 180;

@@ -3,7 +3,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router';
 import { createServer, loadEnv } from 'vite';
 
 const projectRoot = path.resolve(fileURLToPath(new URL('../', import.meta.url)));
@@ -32,15 +31,23 @@ const setMeta = (html, attribute, key, content) => {
 try {
   // Rutas, títulos y datos salen de los mismos módulos que usa el sitio.
   const load = (file) => vite.ssrLoadModule(file);
-  const [{ default: App }, metadata, siteRoutes, { default: services }, { default: studio }, studioDetails] =
-    await Promise.all([
-      load('/src/App.jsx'),
-      load('/src/pageMetadata.js'),
-      load('/src/routes.js'),
-      load('/src/data/services.json'),
-      load('/src/data/studio.json'),
-      load('/src/utils/studioDetails.js'),
-    ]);
+  const [
+    { default: App },
+    { Router },
+    metadata,
+    siteRoutes,
+    { default: services },
+    { default: studio },
+    studioDetails,
+  ] = await Promise.all([
+    load('/src/App.jsx'),
+    load('/src/router/index.jsx'),
+    load('/src/pageMetadata.js'),
+    load('/src/routes.js'),
+    load('/src/data/services.json'),
+    load('/src/data/studio.json'),
+    load('/src/utils/studioDetails.js'),
+  ]);
 
   const routes = [
     { path: siteRoutes.HOME_PATH, file: 'index.html', canonicalPath: '/', structuredData: true, ...metadata.HOME_PAGE },
@@ -99,9 +106,7 @@ try {
   };
 
   const renderRoute = (baseHtml, route) => {
-    const markup = renderToString(
-      React.createElement(StaticRouter, { location: route.path }, React.createElement(App)),
-    );
+    const markup = renderToString(React.createElement(Router, { location: route.path }, React.createElement(App)));
     let html = baseHtml.replace('<div id="root"></div>', '<div id="root">' + markup + '</div>');
 
     html = html.replace(/<title>[^<]*<\/title>/, '<title>' + escapeHtml(route.title) + '</title>');

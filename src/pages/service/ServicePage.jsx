@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from '../../router';
 import services from '../../data/services.json';
 import { usePageTransition } from '../../context/PageTransitionContext';
 import usePageMetadata from '../../hooks/usePageMetadata';

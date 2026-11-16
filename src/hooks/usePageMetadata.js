@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '../router';
 import { CONTACT_PATH, HOME_PATH, PRIVACY_PATH, findServiceByPath } from '../routes';
 import { HOME_PAGE, servicePage } from '../pageMetadata';
 

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '../../router';
 import { usePageTransition } from '../../context/PageTransitionContext';
 
 const TransitionLink = ({ to, onClick, ...props }) => {

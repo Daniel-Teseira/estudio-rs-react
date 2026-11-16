@@ -77,6 +77,18 @@ test('al cambiar de página se vuelve arriba', async ({ page }) => {
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
 });
 
+test('atrás y adelante del navegador cambian de página', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('contentinfo').getByRole('link', { name: 'Privacidad' }).click();
+  await expect(page.getByRole('heading', { level: 1, name: 'Política de privacidad' })).toBeVisible();
+  await page.goBack();
+  await expect(page).toHaveURL('/');
+  await expect(page.getByRole('heading', { name: 'Áreas de práctica' })).toBeVisible();
+  await page.goForward();
+  await expect(page).toHaveURL('/privacidad');
+  await expect(page.getByRole('heading', { level: 1, name: 'Política de privacidad' })).toBeVisible();
+});
+
 test('el formulario arma el mensaje de WhatsApp con el área elegida', async ({ page }) => {
   await page.addInitScript(() => {
     window.open = (url) => {
