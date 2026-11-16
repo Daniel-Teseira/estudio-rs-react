@@ -1,0 +1,10 @@
+{
+  "justice-gavel": { "source": "carousel/justice-gavel.jpg", "folder": "home", "widths": [640, 960, 1280, 1920], "quality": 82 },
+  "law-books": { "source": "carousel/law-books.jpg", "folder": "home", "widths": [640, 960, 1280, 1920], "quality": 82 },
+  "public-demonstration": { "source": "carousel/public-demonstration.jpg", "folder": "home", "widths": [640, 960, 1280, 1920], "quality": 82 },
+  "family": { "source": "services/family.jpg", "folder": "services", "widths": [360, 480, 640], "quality": 80 },
+  "labor": { "source": "services/labor.jpg", "folder": "services", "widths": [360, 480, 600], "quality": 80 },
+  "social-security": { "source": "services/social-security.jpg", "folder": "services", "widths": [360, 480, 640, 800, 1200], "quality": 80 },
+  "acquisitive-prescription": { "source": "services/acquisitive-prescription.jpg", "folder": "services", "widths": [360, 480, 640, 800, 1200], "quality": 80 },
+  "extrajudicial-agreements": { "source": "services/extrajudicial-agreements.jpg", "folder": "services", "widths": [360, 480, 640, 800, 1200], "quality": 80 }
+}

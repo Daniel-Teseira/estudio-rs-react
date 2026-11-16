@@ -3,16 +3,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './PageTransition.css';
 
 const COVER_DURATION = 180;
-const SIMULATED_LOAD_DURATION = 500;
 const REVEAL_DURATION = 180;
 
 const PageTransitionContext = createContext(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const usePageTransition = () => useContext(PageTransitionContext);
 
 export const PageTransitionProvider = ({ children }) => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const [phase, setPhase] = useState('idle');
   const [hasEntered, setHasEntered] = useState(true);
   const [animatedPath, setAnimatedPath] = useState(null);
@@ -34,35 +34,32 @@ export const PageTransitionProvider = ({ children }) => {
   useEffect(() => () => clearTimers(), [clearTimers]);
 
   const navigateWithTransition = useCallback((to) => {
-    if (phase !== 'idle' || to === pathname) return;
+    if (phase !== 'idle' || to === pathname + search) return;
 
     clearTimers();
     const id = ++transitionId.current;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    setHasEntered(false);
-    setAnimatedPath(to);
+    const destinationPath = to.split('?')[0];
+    setAnimatedPath(destinationPath);
 
-    if (reduceMotion) {
+    if (reduceMotion || destinationPath === pathname) {
       navigate(to);
-      setHasEntered(true);
       return;
     }
 
+    setHasEntered(false);
     setPhase('covering');
 
+    // La página ya está cargada: se navega en cuanto la cortina cubre la pantalla.
     schedule(() => {
       navigate(to);
-      setPhase('loading');
-
+      setPhase('revealing');
       schedule(() => {
-        setPhase('revealing');
-        schedule(() => {
-          setHasEntered(true);
-          setPhase('idle');
-        }, REVEAL_DURATION, id);
-      }, SIMULATED_LOAD_DURATION, id);
+        setHasEntered(true);
+        setPhase('idle');
+      }, REVEAL_DURATION, id);
     }, COVER_DURATION, id);
-  }, [clearTimers, navigate, pathname, phase, schedule]);
+  }, [clearTimers, navigate, pathname, search, phase, schedule]);
 
   return (
     <PageTransitionContext.Provider value={{ phase, hasEntered, animatedPath, navigateWithTransition }}>

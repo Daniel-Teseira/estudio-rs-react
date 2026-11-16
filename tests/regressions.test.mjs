@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import vm from 'node:vm';
-import Data from '../src/json/Data.json' with { type: 'json' };
-import serviceSlug from '../src/utils/serviceSlug.js';
+import * as routes from '../src/routes.js';
+import * as pageMetadata from '../src/pageMetadata.js';
 
 const monitoringSource = (await readFile(new URL('../src/monitoring/clientErrors.js', import.meta.url), 'utf8'))
   .replaceAll('import.meta.env.PROD', 'true').replaceAll('export const ', 'var ');
@@ -50,7 +50,7 @@ test('volver del 404 restaura indexación y cada ruta actualiza la imagen social
       elements.set(key, element);
     } },
   };
-  const context = vm.createContext({ document, URL, Data, serviceSlug,
+  const context = vm.createContext({ document, URL, ...routes, ...pageMetadata,
     useEffect: (effect) => effect(), useLocation: () => ({ pathname }),
   });
   vm.runInContext(metadataSource, context);
@@ -62,9 +62,9 @@ test('volver del 404 restaura indexación y cada ruta actualiza la imagen social
   assert.match(elements.get('meta[property="og:image"]').attributes.content, /justice-gavel/);
   update('/servicios/familia');
   assert.match(elements.get('meta[property="og:image"]').attributes.content, /family/);
-  update('/contact');
+  update('/contacto');
   assert.equal(elements.has('meta[property="og:image"]'), false);
   assert.equal(elements.has('meta[name="twitter:image"]'), false);
-  assert.equal(elements.get('link[rel="canonical"]').href, 'https://example.com/contact');
+  assert.equal(elements.get('link[rel="canonical"]').href, 'https://example.com/contacto');
 });
 

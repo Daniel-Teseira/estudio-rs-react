@@ -1,19 +1,12 @@
-import { mkdir, readdir, rename, rm, stat } from 'node:fs/promises';
+import { mkdir, readFile, readdir, rename, rm, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
 const projectRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
-const jobs = [
-  { source: 'carousel/justice-gavel.jpg', folder: 'home', name: 'justice-gavel', widths: [640, 960, 1280, 1920], quality: 82 },
-  { source: 'carousel/law-books.jpg', folder: 'home', name: 'law-books', widths: [640, 960, 1280, 1920], quality: 82 },
-  { source: 'carousel/public-demonstration.jpg', folder: 'home', name: 'public-demonstration', widths: [640, 960, 1280, 1920], quality: 82 },
-  { source: 'services/family.jpg', folder: 'services', name: 'family', widths: [360, 480, 640], quality: 80 },
-  { source: 'services/labor.jpg', folder: 'services', name: 'labor', widths: [360, 480, 600], quality: 80 },
-  { source: 'services/social-security.jpg', folder: 'services', name: 'social-security', widths: [360, 480, 640, 800, 1200], quality: 80 },
-  { source: 'services/acquisitive-prescription.jpg', folder: 'services', name: 'acquisitive-prescription', widths: [360, 480, 640, 800, 1200], quality: 80 },
-  { source: 'services/extrajudicial-agreements.jpg', folder: 'services', name: 'extrajudicial-agreements', widths: [360, 480, 640, 800, 1200], quality: 80 },
-];
+// La lista de imágenes y sus anchos se define una sola vez en src/data/images.json.
+const images = JSON.parse(await readFile(path.join(projectRoot, 'src/data/images.json'), 'utf8'));
+const jobs = Object.entries(images).map(([name, image]) => ({ name, ...image }));
 
 const formatBytes = (bytes) => `${Math.round(bytes / 1024)} KB`;
 

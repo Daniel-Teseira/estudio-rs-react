@@ -42,7 +42,8 @@
   width: 2rem;
   height: 2rem;
   object-fit: contain;
-  filter: brightness(0) invert(1);
+  border-radius: 0.45rem;
+  box-shadow: 0 0 0 1px rgba(223, 194, 139, 0.35);
 }
 
 .navbar.bg-body-tertiary .navbar-nav {

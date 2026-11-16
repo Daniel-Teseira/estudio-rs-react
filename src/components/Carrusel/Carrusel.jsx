@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import Image from '../../images/image.js';
 import getResponsiveImageProps from '../../utils/responsiveImage';
 import './Carrusel.css';
 
@@ -91,16 +90,16 @@ export const Carrusel = () => {
         <div className='carousel-inner'>
           <div className='carousel-item active' data-bs-interval='7500' aria-roledescription='diapositiva'>
             <img
-              {...getResponsiveImageProps(Image.carousel1, '100vw')}
+              {...getResponsiveImageProps('justice-gavel', '100vw')}
               className='d-block w-100 imag'
               alt='Mazo judicial junto a una persona redactando un documento'
-              fetchpriority='high'
+              fetchPriority='high'
             />
           </div>
 
           <div className='carousel-item' aria-roledescription='diapositiva'>
             <img
-              {...getResponsiveImageProps(Image.carousel2, '100vw')}
+              {...getResponsiveImageProps('law-books', '100vw')}
               className='d-block w-100 imag'
               alt='Colección de libros jurídicos'
               loading='lazy'
@@ -110,7 +109,7 @@ export const Carrusel = () => {
 
           <div className='carousel-item' aria-roledescription='diapositiva'>
             <img
-              {...getResponsiveImageProps(Image.carousel3, '100vw')}
+              {...getResponsiveImageProps('public-demonstration', '100vw')}
               className='d-block w-100 imag'
               alt='Personas reunidas en una manifestación'
               loading='lazy'

@@ -1,0 +1,16 @@
+{
+  "name": "Estudio Jurídico RS",
+  "lawyer": "",
+  "registration": "",
+  "address": "",
+  "city": "",
+  "province": "",
+  "hours": "",
+  "email": "",
+  "whatsapp": "543813019431",
+  "phoneDisplay": "+54 9 381 301-9431",
+  "social": [
+    { "network": "Instagram", "handle": "@rocio_sosa_97", "url": "https://www.instagram.com/rocio_sosa_97/" },
+    { "network": "Facebook", "handle": "Facebook", "url": "https://www.facebook.com/eresparamiii" }
+  ]
+}

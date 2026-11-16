@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import Data from '../json/Data.json';
-import serviceSlug from '../utils/serviceSlug';
+import { CONTACT_PATH, HOME_PATH, findServiceByPath } from '../routes';
+import { HOME_PAGE, servicePage } from '../pageMetadata';
 
 const setMetaContent = (selector, content) => {
   let element = document.querySelector(selector);
@@ -24,11 +24,11 @@ const usePageMetadata = (title, description) => {
     setMetaContent('meta[name="twitter:title"]', title);
     setMetaContent('meta[name="twitter:description"]', description);
 
-    const service = Data.find((item) => currentPath === `/servicios/${serviceSlug(item.title)}`);
-    const isHome = currentPath === '/' || currentPath === '/home';
-    const noIndex = !isHome && currentPath !== '/contact' && !service;
+    const service = findServiceByPath(currentPath);
+    const isHome = currentPath === HOME_PATH;
+    const noIndex = !isHome && currentPath !== CONTACT_PATH && !service;
     setMetaContent('meta[name="robots"]', noIndex ? 'noindex, nofollow' : 'index, follow');
-    const image = isHome ? '/images/home/justice-gavel-1920.webp' : service?.picture;
+    const image = isHome ? HOME_PAGE.image : service && servicePage(service).image;
     for (const selector of ['meta[property="og:image"]', 'meta[name="twitter:image"]']) {
       document.querySelector(selector)?.remove();
     }
@@ -37,8 +37,7 @@ const usePageMetadata = (title, description) => {
     const baseUrl = import.meta.env.VITE_SITE_URL;
     if (!baseUrl) return;
 
-    const pathname = isHome ? '/' : currentPath;
-    const canonicalUrl = new URL(pathname, baseUrl).toString();
+    const canonicalUrl = new URL(currentPath, baseUrl).toString();
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');

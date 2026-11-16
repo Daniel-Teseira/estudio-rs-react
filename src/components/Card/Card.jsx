@@ -2,7 +2,7 @@ import './Card.css';
 import useScrollReveal from '../../hooks/useScrollReveal';
 import getResponsiveImageProps from '../../utils/responsiveImage';
 
-const Card = ({ description, title, picture, id, reverse = false }) => {
+const Card = ({ description, title, image, id, reverse = false }) => {
   const { ref, isVisible } = useScrollReveal();
 
   return (
@@ -12,7 +12,7 @@ const Card = ({ description, title, picture, id, reverse = false }) => {
     >
       <div className="service-card__media">
         <img
-          {...getResponsiveImageProps(picture, '(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 42vw')}
+          {...getResponsiveImageProps(image, '(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 42vw')}
           alt=""
           loading="lazy"
           decoding="async"

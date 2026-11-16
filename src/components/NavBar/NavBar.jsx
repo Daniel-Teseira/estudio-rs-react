@@ -1,15 +1,17 @@
 import './navbar.css';
-import Image from '../../images/image.js';
 import { useLocation } from 'react-router-dom';
-import Data from '../../json/Data.json';
-import serviceSlug from '../../utils/serviceSlug';
+import services from '../../data/services.json';
+import studio from '../../data/studio.json';
 import TransitionLink from '../TransitionLink/TransitionLink';
 import { usePageTransition } from '../../context/PageTransitionContext';
+import { CONTACT_PATH, HOME_PATH, servicePath } from '../../routes';
 
 const NavBar = () => {
   const { pathname } = useLocation();
   const { animatedPath } = usePageTransition();
   const isTransitionDestination = animatedPath === pathname;
+  const currentProps = (path) => (pathname === path ? { 'aria-current': 'page' } : {});
+  const activeClass = (isActive) => (isActive ? ' active' : '');
 
   return (
     <nav
@@ -18,15 +20,15 @@ const NavBar = () => {
       className={`navbar navbar-expand-lg bg-body-tertiary${isTransitionDestination ? ' navbar--route-transition' : ''}`}
     >
       <div className="container">
-        <TransitionLink className="navbar-brand" to="/home">
+        <TransitionLink className="navbar-brand" to={HOME_PATH}>
           <img
-            src={Image.nav1}
+            src="/icons/logo.svg"
             alt=""
-            width="30"
-            height="24"
+            width="28"
+            height="28"
             className="d-inline-block align-text-top"
           />{' '}
-          Estudio Jurídico RS
+          {studio.name}
         </TransitionLink>
 
         <button
@@ -44,26 +46,18 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="responsive-navbar-nav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <TransitionLink
-                className={`nav-link${(pathname === '/' || pathname === '/home') ? ' active' : ''}`}
-                to="/home"
-                aria-current={(pathname === '/' || pathname === '/home') ? 'page' : undefined}
-              >
+              <TransitionLink className={`nav-link${activeClass(pathname === HOME_PATH)}`} to={HOME_PATH} {...currentProps(HOME_PATH)}>
                 Inicio
               </TransitionLink>
             </li>
             <li className="nav-item">
-              <TransitionLink
-                className={`nav-link${pathname === '/contact' ? ' active' : ''}`}
-                to="/contact"
-                aria-current={pathname === '/contact' ? 'page' : undefined}
-              >
+              <TransitionLink className={`nav-link${activeClass(pathname === CONTACT_PATH)}`} to={CONTACT_PATH} {...currentProps(CONTACT_PATH)}>
                 Contacto
               </TransitionLink>
             </li>
             <li className="nav-item dropdown">
               <button
-                className={`nav-link dropdown-toggle${pathname.startsWith('/servicios/') ? ' active' : ''}`}
+                className={`nav-link dropdown-toggle${activeClass(pathname.startsWith('/servicios/'))}`}
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -71,12 +65,12 @@ const NavBar = () => {
                 Servicios
               </button>
               <ul className="dropdown-menu">
-                {Data.map((service) => (
+                {services.map((service) => (
                   <li key={service.id}>
                     <TransitionLink
-                      className={`dropdown-item${pathname === `/servicios/${serviceSlug(service.title)}` ? ' active' : ''}`}
-                      to={`/servicios/${serviceSlug(service.title)}`}
-                      aria-current={pathname === `/servicios/${serviceSlug(service.title)}` ? 'page' : undefined}
+                      className={`dropdown-item${activeClass(pathname === servicePath(service))}`}
+                      to={servicePath(service)}
+                      {...currentProps(servicePath(service))}
                     >
                       {service.title}
                     </TransitionLink>

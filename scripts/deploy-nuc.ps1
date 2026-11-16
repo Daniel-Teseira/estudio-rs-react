@@ -10,7 +10,7 @@ try {
         throw 'Primero ejecutá npm run check para generar dist/.'
     }
     Write-Host 'Preparando la versión compilada para el NUC...'
-    tar -czf $archive dist server.mjs package.json vercel.json api/client-errors.js scripts/start-nuc.sh scripts/node-nuc.sh scripts/install-nuc.sh
+    tar -czf $archive dist server.mjs package.json vercel.json api/client-errors.js scripts/start-nuc.sh scripts/node-nuc.sh scripts/install-nuc.sh scripts/service-nuc.sh
     if ($LASTEXITCODE -ne 0) { throw 'No se pudo generar el archivo de despliegue.' }
 
     Write-Host 'Copiando al NUC. Ingresá la contraseña SSH cuando la solicite.'

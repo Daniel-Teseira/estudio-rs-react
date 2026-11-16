@@ -64,6 +64,8 @@ export async function createProductionServer({ distDirectory = path.join(root, '
   await access(path.join(distDirectory, '404.html'));
   const configuration = JSON.parse(await readFile(path.join(root, 'vercel.json'), 'utf8'));
   const headers = configuration.headers.flatMap((rule) => rule.headers);
+  // Mismas redirecciones permanentes que publica Vercel (308).
+  const redirects = new Map((configuration.redirects ?? []).map((rule) => [rule.source, rule]));
 
   const server = createServer(async (request, response) => {
     for (const { key, value } of headers) {
@@ -77,6 +79,12 @@ export async function createProductionServer({ distDirectory = path.join(root, '
     try {
       const pathname = decodeURIComponent(request.url.split('?')[0]);
       if (pathname === '/api/client-errors') return receiveReport(request, response);
+      const redirect = redirects.get(pathname.replace(/(.)\/+$/, '$1'));
+      if (redirect) {
+        const query = request.url.includes('?') ? request.url.slice(request.url.indexOf('?')) : '';
+        response.writeHead(redirect.permanent ? 308 : 307, { Location: redirect.destination + query });
+        return response.end();
+      }
       if (!['GET', 'HEAD'].includes(request.method)) {
         response.writeHead(405, { Allow: 'GET, HEAD' });
         return response.end();

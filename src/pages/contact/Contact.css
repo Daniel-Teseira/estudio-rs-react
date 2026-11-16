@@ -181,7 +181,8 @@
   margin: 1rem 0 2rem;
 }
 
-.contact-details > a {
+.contact-details > a,
+.contact-details > .contact-details__item {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
@@ -240,6 +241,7 @@
 }
 
 .contact-form input,
+.contact-form select,
 .contact-form textarea {
   width: 100%;
   padding: 0.85rem 0.9rem;
@@ -260,6 +262,7 @@
 }
 
 .contact-form input:focus,
+.contact-form select:focus,
 .contact-form textarea:focus {
   border-color: var(--contact-gold);
   box-shadow: 0 0 0 3px rgba(152, 123, 73, 0.13);
@@ -347,7 +350,12 @@
   .contact-whatsapp,
   .contact-details > a,
   .contact-form input,
+  .contact-form select,
   .contact-form textarea { transition: none; }
   .contact-whatsapp:hover,
   .contact-whatsapp:focus-visible { transform: none; }
+}
+
+.contact-details > .contact-details__item {
+  margin-bottom: 0;
 }

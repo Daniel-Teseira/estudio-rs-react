@@ -14,7 +14,7 @@ before(async () => {
   await mkdir(path.join(directory, 'servicios'));
   for (const [file, contents] of Object.entries({
     'index.html': '<h1>Estudio Jurídico RS</h1>',
-    'contact.html': '<h1>Contacto</h1>',
+    'contacto.html': '<h1>Contacto</h1>',
     'servicios/familia.html': '<h1>Familia</h1>',
     '404.html': '<h1>ERROR 404</h1>',
     'site.css': 'body { color: black; }',
@@ -40,7 +40,7 @@ after(async () => {
 });
 
 test('el servidor publica las páginas renderizadas con rutas limpias', async () => {
-  for (const [route, text] of [['/', 'Estudio Jurídico RS'], ['/contact', 'Contacto'], ['/servicios/familia', 'Familia']]) {
+  for (const [route, text] of [['/', 'Estudio Jurídico RS'], ['/contacto', 'Contacto'], ['/servicios/familia', 'Familia']]) {
     const response = await fetch(baseUrl + route);
     assert.equal(response.status, 200);
     assert.match(response.headers.get('content-type'), /text\/html/);
@@ -50,11 +50,19 @@ test('el servidor publica las páginas renderizadas con rutas limpias', async ()
   }
 });
 
+test('las direcciones antiguas redirigen de forma permanente y conservan la consulta', async () => {
+  for (const [route, destination] of [['/home', '/'], ['/contact', '/contacto'], ['/contact/?area=laboral', '/contacto?area=laboral']]) {
+    const response = await fetch(baseUrl + route, { redirect: 'manual' });
+    assert.equal(response.status, 308, route);
+    assert.equal(response.headers.get('location'), destination);
+  }
+});
+
 test('los archivos tienen su tipo y HEAD no envía contenido', async () => {
   const response = await fetch(baseUrl + '/site.css');
   assert.equal(response.status, 200);
   assert.match(response.headers.get('content-type'), /text\/css/);
-  const head = await fetch(baseUrl + '/contact', { method: 'HEAD' });
+  const head = await fetch(baseUrl + '/contacto', { method: 'HEAD' });
   assert.equal(head.status, 200);
   assert.ok(Number(head.headers.get('content-length')) > 0);
   assert.equal(await head.text(), '');
@@ -73,7 +81,7 @@ test('se rechazan rutas ocultas o malformadas y métodos no admitidos', async ()
     const response = await fetch(baseUrl + route);
     assert.equal(response.status, 400, route);
   }
-  const response = await fetch(baseUrl + '/contact', { method: 'POST' });
+  const response = await fetch(baseUrl + '/contacto', { method: 'POST' });
   assert.equal(response.status, 405);
   assert.equal(response.headers.get('allow'), 'GET, HEAD');
 });

@@ -1,12 +1,11 @@
 import './Error404.css';
 import TransitionLink from '../../components/TransitionLink/TransitionLink';
 import usePageMetadata from '../../hooks/usePageMetadata';
+import { NOT_FOUND_PAGE } from '../../pageMetadata';
+import { CONTACT_PATH, HOME_PATH } from '../../routes';
 
 const Error404 = () => {
-  usePageMetadata(
-    'Página no encontrada | Estudio Jurídico RS',
-    'La página que buscás no está disponible. Volvé al inicio o contactá al estudio.'
-  );
+  usePageMetadata(NOT_FOUND_PAGE.title, NOT_FOUND_PAGE.description);
 
   return (
     <main className="not-found-page">
@@ -25,10 +24,10 @@ const Error404 = () => {
           ayudarte a encontrar la información que necesitás.
         </p>
         <div className="not-found-card__actions">
-          <TransitionLink className="not-found-button not-found-button--primary" to="/home">
+          <TransitionLink className="not-found-button not-found-button--primary" to={HOME_PATH}>
             Volver a Inicio <span aria-hidden="true">→</span>
           </TransitionLink>
-          <TransitionLink className="not-found-button not-found-button--secondary" to="/contact">
+          <TransitionLink className="not-found-button not-found-button--secondary" to={CONTACT_PATH}>
             Contactar al estudio
           </TransitionLink>
         </div>

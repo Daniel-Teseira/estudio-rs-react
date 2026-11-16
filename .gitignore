@@ -14,6 +14,7 @@
 /.vercel
 /public/images/home/
 /public/images/services/
+/public/icons/
 
 # misc
 .DS_Store

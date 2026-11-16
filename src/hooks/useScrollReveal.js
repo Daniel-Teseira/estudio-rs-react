@@ -10,6 +10,8 @@ const useScrollReveal = () => {
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      // Sin animación posible: se muestra de inmediato tras hidratar.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsVisible(true);
       return undefined;
     }

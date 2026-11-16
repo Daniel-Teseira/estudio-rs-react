@@ -15,7 +15,7 @@ test -f "$incoming/dist/404.html"
 cp "$incoming/server.mjs" "$incoming/package.json" "$incoming/vercel.json" .
 mkdir -p api scripts
 cp "$incoming/api/client-errors.js" api/
-cp "$incoming/scripts/start-nuc.sh" "$incoming/scripts/node-nuc.sh" scripts/
+cp "$incoming/scripts/start-nuc.sh" "$incoming/scripts/node-nuc.sh" "$incoming/scripts/service-nuc.sh" scripts/
 if [ -d dist ]; then
   backup=$(mktemp -d "$project_directory/.nuc-backup.XXXXXX")
   mv "$project_directory/dist" "$backup/dist"
