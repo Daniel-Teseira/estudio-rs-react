@@ -56,6 +56,15 @@ test('las redirecciones del sitio coinciden con las de Vercel y el NUC', () => {
   );
 });
 
+test('los scripts de PowerShell tienen exactamente un BOM UTF-8', async () => {
+  // Windows PowerShell 5.1 necesita el BOM para leer los acentos; uno duplicado rompe param().
+  for (const name of ['deploy-nuc.ps1', 'setup-ssh-key.ps1']) {
+    const bytes = await readFile(new URL(`../scripts/${name}`, import.meta.url));
+    assert.deepEqual([...bytes.subarray(0, 3)], [0xef, 0xbb, 0xbf], `${name} debe empezar con BOM`);
+    assert.notDeepEqual([...bytes.subarray(3, 6)], [0xef, 0xbb, 0xbf], `${name} tiene el BOM duplicado`);
+  }
+});
+
 test('el enlace de WhatsApp codifica el mensaje', () => {
   assert.equal(whatsappUrl(), `https://wa.me/${studio.whatsapp}`);
   assert.equal(whatsappUrl('Hola & chau'), `https://wa.me/${studio.whatsapp}?text=Hola%20%26%20chau`);

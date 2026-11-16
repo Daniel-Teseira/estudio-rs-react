@@ -1,4 +1,4 @@
-﻿﻿param(
+﻿param(
     [string]$Destino = 'daniel@192.168.1.250',
     # Despliega aunque dist/ no corresponda al commit actual.
     [switch]$Force
