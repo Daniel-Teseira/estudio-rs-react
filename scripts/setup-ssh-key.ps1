@@ -21,5 +21,15 @@ $remoteCommand = 'umask 077; mkdir -p ~/.ssh; touch ~/.ssh/authorized_keys; tr -
 $publicKey | ssh $Destino $remoteCommand
 if ($LASTEXITCODE -ne 0) { throw 'No se pudo autorizar la clave en el NUC.' }
 
+# Una clave con frase no puede probarse sin interacción: ssh pide la frase, no la contraseña.
+ssh-keygen -y -P '' -f $key 2>$null | Out-Null
+if ($LASTEXITCODE -ne 0) {
+    Write-Host 'Clave autorizada. Como tiene frase, ssh te la va a pedir en lugar de la contraseña del NUC.'
+    Write-Host 'Para escribirla una sola vez, activá el agente de SSH de Windows (PowerShell como administrador):'
+    Write-Host '    Get-Service ssh-agent | Set-Service -StartupType Automatic; Start-Service ssh-agent'
+    Write-Host 'y después, como usuario normal:  ssh-add'
+    exit 0
+}
+
 ssh -o BatchMode=yes $Destino 'echo Acceso por clave configurado.'
 if ($LASTEXITCODE -ne 0) { throw 'La clave quedó copiada, pero el NUC todavía pide contraseña.' }

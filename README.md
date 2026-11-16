@@ -62,6 +62,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup-ssh-key.ps1
 
 Crea una clave en `~\.ssh\id_ed25519` si no existe (podés protegerla con una frase) y la autoriza en el NUC. Pide la contraseña SSH por última vez.
 
+Si la clave tiene frase, ssh la pide en cada conexión en lugar de la contraseña. Para escribirla una sola vez, activá el agente de SSH de Windows desde PowerShell como administrador (`Get-Service ssh-agent | Set-Service -StartupType Automatic; Start-Service ssh-agent`) y después ejecutá `ssh-add` como usuario normal: la clave queda guardada aunque reinicies.
+
 ### Desplegar
 
 Commiteá los cambios, ejecutá `npm run check` y después:
