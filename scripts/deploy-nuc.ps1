@@ -1,4 +1,4 @@
-param([string]$Destino = 'daniel@192.168.1.250')
+﻿param([string]$Destino = 'daniel@192.168.1.250')
 
 $ErrorActionPreference = 'Stop'
 $projectDirectory = Split-Path -Parent $PSScriptRoot
