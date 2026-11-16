@@ -37,3 +37,4 @@ yarn-error.log*
 
 # configuración local de Claude Code
 /.claude/
+/visual-tmp/

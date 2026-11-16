@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import { Router } from './router';
 import '@fontsource/quattrocento/400.css';
-import './styles/bootstrap.scss';
+import './styles/base.css';
 import './styles/tokens.css';
 import './index.css';
 import App from './App';
