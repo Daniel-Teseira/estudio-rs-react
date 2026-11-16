@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test as base } from '@playwright/test';
 
 // Cada test falla si la página registra errores en la consola (incluidas violaciones de la CSP).
@@ -12,6 +13,36 @@ const test = base.extend({
     await use(page);
     expect(errors, 'errores en la consola').toEqual([]);
   },
+});
+
+for (const route of ['/', '/contacto', '/servicios/familia', '/privacidad', '/no-existe']) {
+  test(`${route} cumple WCAG 2.2 AA según axe`, async ({ page }) => {
+    await page.goto(route);
+    // Recorre la página para que aparezcan las tarjetas que se animan al hacer scroll.
+    await page.evaluate(async () => {
+      for (let y = 0; y < document.body.scrollHeight; y += window.innerHeight / 2) {
+        window.scrollTo({ top: y, behavior: 'instant' });
+        await new Promise((resolve) => setTimeout(resolve, 60));
+      }
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+    await page.waitForTimeout(800);
+    const result = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+      .analyze();
+    const summary = result.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`);
+    expect(summary).toEqual([]);
+  });
+}
+
+test('sin JavaScript se ve todo el contenido prerenderizado', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto('/');
+  const card = page.locator('.service-card').first();
+  await expect(card).toBeVisible();
+  expect(await card.evaluate((element) => getComputedStyle(element).opacity)).toBe('1');
+  await context.close();
 });
 
 test('la portada muestra el carrusel, las áreas y el proceso de trabajo', async ({ page }) => {

@@ -10,17 +10,16 @@
   border: 1px solid rgba(23, 23, 23, 0.08);
   border-radius: 0.75rem;
   box-shadow: 0 22px 60px rgba(30, 28, 22, 0.09);
-  opacity: 0;
-  transform: translateY(1.25rem);
   transition:
     opacity 700ms ease,
     box-shadow 220ms ease,
     transform 220ms ease;
 }
 
-.service-card--visible {
-  opacity: 1;
-  transform: translateY(0);
+/* Solo las tarjetas que arrancan fuera de pantalla esperan oculta su aparición. */
+.service-card--pending {
+  opacity: 0;
+  transform: translateY(1.25rem);
 }
 
 .service-card:hover {
@@ -119,7 +118,7 @@
 
 .service-card__eyebrow {
   margin: 0 0 1rem;
-  color: var(--color-gold-dark);
+  color: var(--color-gold-text);
   font-size: 0.67rem;
   font-weight: 700;
   letter-spacing: 0.17em;

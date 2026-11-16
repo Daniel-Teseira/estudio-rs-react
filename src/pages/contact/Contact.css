@@ -277,7 +277,7 @@
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: #a09e97;
+  color: var(--color-muted);
 }
 
 .contact-form__optional {

@@ -3,6 +3,7 @@ import { access, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import services from '../src/data/services.json' with { type: 'json' };
+import images from '../src/data/images.json' with { type: 'json' };
 import { imageUrl } from '../src/utils/responsiveImage.js';
 
 const projectRoot = path.resolve(fileURLToPath(new URL('../', import.meta.url)));
@@ -29,6 +30,13 @@ for (const service of services) {
   assert.match(html, /Preguntas frecuentes/, 'el servicio debe incluir preguntas frecuentes: ' + service.title);
   assert.match(html, /\bsrcset=/i, 'el servicio debe servir imágenes responsivas: ' + service.title);
   await access(path.join(distDirectory, imageUrl(service.image).replace(/^\//, '')));
+}
+
+// Cada variante que aparece en un srcset tiene que existir.
+for (const [name, image] of Object.entries(images)) {
+  for (const width of image.widths) {
+    await access(path.join(distDirectory, 'images', image.folder, `${name}-${width}.webp`));
+  }
 }
 
 for (const icon of [

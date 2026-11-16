@@ -83,7 +83,7 @@
 
 .service-description__eyebrow {
   margin: 0;
-  color: var(--color-gold-deep);
+  color: var(--color-gold-text);
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.17em;

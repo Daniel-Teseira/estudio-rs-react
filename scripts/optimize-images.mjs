@@ -22,7 +22,18 @@ for (const job of jobs) {
       .filter((file) => file === `${job.name}.webp` || new RegExp(`^${job.name}-\\d+\\.webp$`).test(file))
       .map((file) => rm(path.join(outputDirectory, file), { force: true })),
   );
-  const widths = [...new Set(job.widths.map((width) => Math.min(width, metadata.width)))].sort((a, b) => a - b);
+  // Cada ancho configurado genera una URL en srcset: no puede superar al original.
+  const tooWide = job.widths.filter((width) => width > metadata.width);
+  if (tooWide.length > 0) {
+    throw new Error(
+      `${job.source} mide ${metadata.width} px: quitá ${tooWide.join(', ')} de src/data/images.json o reemplazá la foto.`,
+    );
+  }
+  // Las fotos se muestran a pantalla completa; por debajo de 1600 px se ven ampliadas en monitores grandes.
+  if (metadata.width < 1600) {
+    console.warn(`Aviso: ${job.source} mide solo ${metadata.width} px y se verá ampliada a pantalla completa.`);
+  }
+  const widths = [...job.widths].sort((a, b) => a - b);
 
   for (const width of widths) {
     const outputPath = path.join(outputDirectory, `${job.name}-${width}.webp`);

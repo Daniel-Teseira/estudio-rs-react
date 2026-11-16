@@ -45,7 +45,7 @@
 
 .home-eyebrow {
   margin: 0 0 1rem;
-  color: var(--color-gold-dark);
+  color: var(--color-gold-text);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.17em;
@@ -103,7 +103,7 @@
 
 .home-process__number {
   grid-row: span 2;
-  color: var(--color-gold-dark);
+  color: var(--color-gold-text);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.14em;

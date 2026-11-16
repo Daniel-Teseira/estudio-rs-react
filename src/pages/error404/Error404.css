@@ -100,7 +100,7 @@
 
 .not-found-card__eyebrow {
   margin: 0 0 1.25rem;
-  color: var(--color-gold-dark);
+  color: var(--color-gold-text);
   font-size: 0.69rem;
   font-weight: 700;
   letter-spacing: 0.17em;
@@ -182,7 +182,7 @@
 
 .not-found-card__reference {
   margin: 2.5rem 0 0;
-  color: #99978f;
+  color: var(--color-muted);
   font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.13em;
