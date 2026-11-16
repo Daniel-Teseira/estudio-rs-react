@@ -59,6 +59,7 @@ test('el servidor publica las páginas renderizadas con rutas limpias', async ()
     assert.ok((await response.text()).includes(text));
     assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
     assert.ok(!response.headers.get('content-security-policy').includes('upgrade-insecure-requests'));
+    assert.equal(response.headers.get('cross-origin-opener-policy'), null, 'COOP solo aplica con HTTPS');
   }
 });
 

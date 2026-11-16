@@ -110,7 +110,9 @@ export async function createProductionServer({ distDirectory = path.join(root, '
     for (const rule of headerRules) {
       if (!rule.pattern.test(requestPath)) continue;
       for (const { key, value } of rule.headers) {
-        // El NUC se accede por HTTP en la red local.
+        // El NUC se accede por HTTP en la red local: se omiten las directivas que solo
+        // tienen sentido con HTTPS (el navegador ignora COOP en HTTP y lo informa como error).
+        if (key.toLowerCase() === 'cross-origin-opener-policy') continue;
         response.setHeader(
           key,
           key.toLowerCase() === 'content-security-policy'
