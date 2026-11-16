@@ -1,20 +1,43 @@
+import { useEffect, useState } from 'react';
+import { useSearchParams } from '../../router';
 import './Contact.css';
+import services from '../../data/services.json';
+import studio from '../../data/studio.json';
+import usePageMetadata from '../../hooks/usePageMetadata';
+import whatsappUrl from '../../utils/whatsapp';
+import { CONTACT_PAGE } from '../../pageMetadata';
+import { professionalDetails } from '../../utils/studioDetails';
+import { reportContactEvent } from '../../monitoring/clientErrors';
 
-const WHATSAPP_NUMBER = '543813019431';
+const OTHER_AREA = 'otra';
 
 export const Contact = () => {
+  usePageMetadata(CONTACT_PAGE.title, CONTACT_PAGE.description);
+  const [searchParams] = useSearchParams();
+  const [area, setArea] = useState('');
+
+  // Se aplica después de hidratar para que el HTML prerenderizado coincida.
+  useEffect(() => {
+    const requested = searchParams.get('area');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (services.some((service) => service.slug === requested)) setArea(requested);
+  }, [searchParams]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    const selected = services.find((service) => service.slug === formData.get('area'));
     const message = [
       `Hola, soy ${formData.get('name')}.`,
-      `Mi correo es ${formData.get('email')}.`,
-      `Asunto: ${formData.get('subject') || 'Consulta legal'}.`,
+      `Área de consulta: ${selected ? selected.title : 'Otra consulta'}.`,
       `Consulta: ${formData.get('message')}`,
     ].join('\n');
 
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    reportContactEvent('contact_form', selected?.slug);
+    window.open(whatsappUrl(message), '_blank', 'noopener,noreferrer');
   };
+
+  const details = professionalDetails();
 
   return (
     <main className="contact-page">
@@ -28,15 +51,10 @@ export const Contact = () => {
           <p className="contact-eyebrow">ESTAMOS PARA ACOMPAÑARTE</p>
           <h1 id="contact-title">Hablemos de tu situación.</h1>
           <p className="contact-lead">
-            Cada consulta merece atención y claridad. Contanos brevemente qué necesitás
-            y nos pondremos en contacto para orientarte.
+            Cada consulta merece atención y claridad. Elegí un canal y escribinos brevemente qué necesitás para iniciar
+            la conversación.
           </p>
-          <a
-            className="contact-whatsapp"
-            href={`https://wa.me/${WHATSAPP_NUMBER}`}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a className="contact-whatsapp" href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
             Escribir por WhatsApp <span aria-hidden="true">↗</span>
           </a>
         </div>
@@ -47,14 +65,28 @@ export const Contact = () => {
           <p className="contact-eyebrow">CONTACTO DIRECTO</p>
           <h2>Estamos cerca.</h2>
           <p>Elegí el canal que te resulte más cómodo para iniciar tu consulta.</p>
-          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer">
+          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
             <span className="contact-details__label">WhatsApp</span>
-            <span>+54 9 381 301-9431</span>
+            <span>{studio.phoneDisplay}</span>
           </a>
-          <a href="https://www.instagram.com/rocio_sosa_97/" target="_blank" rel="noreferrer">
-            <span className="contact-details__label">Instagram</span>
-            <span>@rocio_sosa_97</span>
-          </a>
+          {studio.email && (
+            <a href={`mailto:${studio.email}`}>
+              <span className="contact-details__label">Correo electrónico</span>
+              <span>{studio.email}</span>
+            </a>
+          )}
+          {studio.social.map(({ network, handle, url }) => (
+            <a key={network} href={url} target="_blank" rel="noopener noreferrer">
+              <span className="contact-details__label">{network}</span>
+              <span>{handle}</span>
+            </a>
+          ))}
+          {details.map(({ label, value }) => (
+            <p key={label} className="contact-details__item">
+              <span className="contact-details__label">{label}</span>
+              <span>{value}</span>
+            </p>
+          ))}
         </aside>
 
         <div className="contact-form-card">
@@ -63,21 +95,27 @@ export const Contact = () => {
           <p className="contact-form-card__description">
             Completá tus datos y prepararemos el mensaje para enviarlo por WhatsApp.
           </p>
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form className="contact-form" onSubmit={handleSubmit} aria-describedby="contact-form-delivery-note">
             <div className="contact-form__row">
               <label>
                 Nombre
                 <input type="text" name="name" autoComplete="name" placeholder="Tu nombre" required />
               </label>
               <label>
-                Correo electrónico
-                <input type="email" name="email" autoComplete="email" placeholder="tu@email.com" required />
+                Área de consulta
+                <select name="area" value={area} onChange={(event) => setArea(event.target.value)} required>
+                  <option value="" disabled>
+                    Elegí un área
+                  </option>
+                  {services.map((service) => (
+                    <option key={service.slug} value={service.slug}>
+                      {service.title}
+                    </option>
+                  ))}
+                  <option value={OTHER_AREA}>Otra consulta</option>
+                </select>
               </label>
             </div>
-            <label>
-              Asunto <span className="contact-form__optional">(opcional)</span>
-              <input type="text" name="subject" placeholder="Área o motivo de consulta" />
-            </label>
             <label>
               Mensaje
               <textarea name="message" rows="5" placeholder="Escribinos cómo podemos ayudarte..." required />
@@ -85,6 +123,10 @@ export const Contact = () => {
             <button type="submit" className="contact-whatsapp contact-form__submit">
               Preparar mensaje <span aria-hidden="true">→</span>
             </button>
+            <p className="contact-form__note" id="contact-form-delivery-note">
+              Al continuar, se abrirá WhatsApp con el mensaje preparado. Solo se enviará cuando lo confirmes desde esa
+              aplicación. Evitá incluir documentación o datos sensibles en el primer mensaje.
+            </p>
           </form>
         </div>
       </section>

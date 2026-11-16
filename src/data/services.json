@@ -1,0 +1,158 @@
+[
+  {
+    "id": 1,
+    "slug": "familia",
+    "title": "Familia",
+    "image": "family",
+    "description": "Orientación y acompañamiento en asuntos de familia, con atención a las particularidades de cada situación.",
+    "intro": "Los asuntos de familia involucran vínculos y decisiones que impactan en la vida cotidiana. Trabajamos con escucha, reserva y claridad para que conozcas tus opciones antes de dar cada paso.",
+    "cases": [
+      "Divorcio y efectos posteriores, como la división de bienes y la atribución de la vivienda.",
+      "Cuidado personal de hijas e hijos y régimen de comunicación.",
+      "Reclamo, fijación o actualización de cuota alimentaria.",
+      "Convenios reguladores y acuerdos entre las partes.",
+      "Filiación y reconocimiento."
+    ],
+    "documents": [
+      "DNI de las personas involucradas.",
+      "Partidas o actas de matrimonio y de nacimiento.",
+      "Comprobantes de ingresos y gastos, si se trata de alimentos.",
+      "Acuerdos o resoluciones anteriores, si existen."
+    ],
+    "faq": [
+      {
+        "question": "¿Es necesario llegar a juicio?",
+        "answer": "No siempre. Cuando es posible, se busca un acuerdo que luego puede presentarse para su homologación. Si no hay acuerdo, se analiza la vía judicial adecuada."
+      },
+      {
+        "question": "¿La primera consulta es confidencial?",
+        "answer": "Sí. Todo lo que nos cuentes queda bajo secreto profesional."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "laboral",
+    "title": "Laboral",
+    "image": "labor",
+    "description": "Asesoramiento en consultas y conflictos vinculados con las relaciones de trabajo y los derechos de las personas involucradas.",
+    "intro": "Una relación laboral genera derechos y obligaciones para ambas partes. Analizamos tu situación concreta para orientarte sobre los reclamos posibles y los plazos que conviene tener en cuenta.",
+    "cases": [
+      "Despidos y cálculo de indemnizaciones.",
+      "Trabajo no registrado o registrado de forma incorrecta.",
+      "Diferencias salariales, horas extra y liquidaciones finales.",
+      "Accidentes y enfermedades vinculadas con el trabajo.",
+      "Intercambio de telegramas y cartas documento."
+    ],
+    "documents": [
+      "DNI.",
+      "Recibos de sueldo, si los tenés.",
+      "Telegramas, cartas documento o comunicaciones recibidas.",
+      "Datos del empleador y fecha de ingreso.",
+      "Mensajes, testigos u otros elementos que acrediten la relación."
+    ],
+    "faq": [
+      {
+        "question": "¿Hay un plazo para reclamar?",
+        "answer": "Sí. Los créditos laborales tienen plazos de prescripción, por eso conviene consultar cuanto antes para no perder derechos."
+      },
+      {
+        "question": "¿Puedo reclamar si no estaba registrado?",
+        "answer": "Sí. La relación laboral puede acreditarse por otros medios. Revisamos qué elementos tenés para evaluar el reclamo."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "previsional",
+    "title": "Previsional",
+    "image": "social-security",
+    "description": "Orientación en consultas y trámites relacionados con jubilaciones, pensiones y otras prestaciones de la seguridad social.",
+    "intro": "Los trámites previsionales suelen requerir documentación y pasos precisos. Te acompañamos para revisar tu historia laboral y definir qué prestación corresponde en tu caso.",
+    "cases": [
+      "Jubilaciones ordinarias y por moratoria, cuando corresponda.",
+      "Pensiones por fallecimiento.",
+      "Revisión de la historia laboral y de los aportes.",
+      "Reajuste de haberes.",
+      "Reclamos ante el organismo previsional."
+    ],
+    "documents": [
+      "DNI.",
+      "Historia laboral o constancia de aportes.",
+      "Certificados de trabajo y de servicios.",
+      "Resoluciones o notificaciones del organismo previsional.",
+      "Partidas, si se trata de una pensión."
+    ],
+    "faq": [
+      {
+        "question": "¿Qué pasa si me faltan años de aportes?",
+        "answer": "Depende de cada caso. Revisamos tu historia laboral para identificar períodos faltantes y las alternativas disponibles."
+      },
+      {
+        "question": "¿Puedo pedir que revisen el monto de mi jubilación?",
+        "answer": "En algunos casos sí. Analizamos la resolución y el cálculo del haber para ver si corresponde un reclamo."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "prescripcion-adquisitiva",
+    "title": "Prescripción Adquisitiva",
+    "image": "acquisitive-prescription",
+    "description": "Asesoramiento en consultas sobre prescripción adquisitiva de inmuebles y revisión de los antecedentes de cada caso.",
+    "intro": "La prescripción adquisitiva, conocida también como usucapión, permite obtener el título de un inmueble a partir de la posesión durante el tiempo y en las condiciones que exige la ley. Revisamos los antecedentes para evaluar si tu caso reúne esos requisitos.",
+    "cases": [
+      "Regularización de inmuebles poseídos durante muchos años sin escritura.",
+      "Análisis de la posesión y de los plazos aplicables.",
+      "Reunión de pruebas: comprobantes, testigos y planos.",
+      "Inicio y seguimiento del juicio de usucapión."
+    ],
+    "documents": [
+      "DNI.",
+      "Boletos de compraventa, cesiones u otros documentos del inmueble.",
+      "Comprobantes de pago de impuestos y servicios a tu nombre.",
+      "Plano de mensura, si existe.",
+      "Datos de vecinos o testigos que conozcan la posesión."
+    ],
+    "faq": [
+      {
+        "question": "¿Cuánto tiempo de posesión se necesita?",
+        "answer": "La ley prevé distintos plazos según las circunstancias de la posesión. Los evaluamos a partir de la documentación de tu caso."
+      },
+      {
+        "question": "¿Sirven los impuestos pagados a mi nombre?",
+        "answer": "Sí. Son una prueba importante de la posesión, junto con otros elementos."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "slug": "acuerdos-extrajudiciales",
+    "title": "Acuerdos Extrajudiciales",
+    "image": "extrajudicial-agreements",
+    "description": "Asistencia en la negociación y formalización de acuerdos para abordar conflictos fuera de un proceso judicial, cuando resulte viable.",
+    "intro": "Muchos conflictos pueden resolverse sin un juicio, con menos tiempo y costos. Te asistimos en la negociación y en la redacción de un acuerdo claro que proteja tus intereses.",
+    "cases": [
+      "Negociación con la otra parte o con su representante.",
+      "Redacción y revisión de convenios.",
+      "Acuerdos de pago y reconocimiento de deudas.",
+      "Instancias de mediación previas a un juicio."
+    ],
+    "documents": [
+      "DNI.",
+      "Contratos, facturas o documentos vinculados con el conflicto.",
+      "Comunicaciones intercambiadas con la otra parte.",
+      "Propuestas de acuerdo recibidas, si las hay."
+    ],
+    "faq": [
+      {
+        "question": "¿Un acuerdo privado tiene validez?",
+        "answer": "Sí, cuando está bien redactado. Según el caso, también puede presentarse para su homologación judicial."
+      },
+      {
+        "question": "¿Qué pasa si la otra parte no cumple?",
+        "answer": "Un acuerdo bien formalizado facilita reclamar su cumplimiento. Por eso cuidamos su redacción desde el principio."
+      }
+    ]
+  }
+]

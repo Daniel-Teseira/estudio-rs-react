@@ -1,0 +1,9 @@
+dist
+build
+node_modules
+public
+package-lock.json
+playwright-report
+test-results
+*.md
+visual-tmp

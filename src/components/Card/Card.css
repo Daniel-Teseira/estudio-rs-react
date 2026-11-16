@@ -1,25 +1,52 @@
 .service-card {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   min-height: 24rem;
   margin: clamp(2rem, 6vw, 4.5rem) 0;
   overflow: hidden;
-  color: #20201d;
+  color: var(--color-ink-soft);
   background: #fff;
   border: 1px solid rgba(23, 23, 23, 0.08);
   border-radius: 0.75rem;
   box-shadow: 0 22px 60px rgba(30, 28, 22, 0.09);
-  transition: box-shadow 220ms ease, transform 220ms ease;
+  transition:
+    opacity 700ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
 }
 
-.home-service-link:hover .service-card {
+/* Solo las tarjetas que arrancan fuera de pantalla esperan oculta su aparición. */
+.service-card--pending {
+  opacity: 0;
+  transform: translateY(1.25rem);
+}
+
+.service-card:hover {
   box-shadow: 0 28px 70px rgba(30, 28, 22, 0.15);
   transform: translateY(-3px);
 }
 
-.home-service-link:focus-visible {
-  border-radius: 0.75rem;
-  outline: 3px solid #987b49;
+/* Enlace en el título que se extiende a toda la tarjeta: el lector de pantalla
+   anuncia solo el nombre del área, pero se puede hacer clic en cualquier parte. */
+.service-card__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.service-card__link::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  content: '';
+}
+
+.service-card__link:focus-visible {
+  outline: none;
+}
+
+.service-card:has(.service-card__link:focus-visible) {
+  outline: 3px solid var(--color-gold-dark);
   outline-offset: 5px;
 }
 
@@ -52,7 +79,7 @@
   transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.home-service-link:hover .service-card__media img {
+.service-card:hover .service-card__media img {
   transform: scale(1.035);
 }
 
@@ -66,7 +93,7 @@
 .service-card__number {
   top: 1.5rem;
   left: 1.5rem;
-  color: #dfc28b;
+  color: var(--color-gold);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -91,17 +118,17 @@
 
 .service-card__eyebrow {
   margin: 0 0 1rem;
-  color: #987b49;
+  color: var(--color-gold-text);
   font-size: 0.67rem;
   font-weight: 700;
   letter-spacing: 0.17em;
   text-transform: uppercase;
 }
 
-.service-card__content h2 {
+.service-card__content h3 {
   margin: 0;
-  color: #20201d;
-  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--color-ink-soft);
+  font-family: var(--font-serif);
   font-size: clamp(2rem, 3.4vw, 3.25rem);
   font-weight: 400;
   letter-spacing: -0.035em;
@@ -111,7 +138,7 @@
 .service-card__description {
   max-width: 34rem;
   margin: 1.2rem 0 0;
-  color: #686761;
+  color: var(--color-muted);
   font-size: 0.95rem;
   line-height: 1.75;
 }
@@ -129,12 +156,12 @@
 }
 
 .service-card__action span {
-  color: #987b49;
+  color: var(--color-gold-dark);
   font-size: 1.1rem;
   transition: transform 180ms ease;
 }
 
-.home-service-link:hover .service-card__action span {
+.service-card:hover .service-card__action span {
   transform: translateX(4px);
 }
 
@@ -162,5 +189,16 @@
   .service-card__media img,
   .service-card__action span {
     transition: none;
+  }
+
+  .service-card {
+    opacity: 1;
+    transform: none;
+  }
+
+  .service-card:hover,
+  .service-card:hover .service-card__media img,
+  .service-card:hover .service-card__action span {
+    transform: none;
   }
 }

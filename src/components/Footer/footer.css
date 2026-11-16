@@ -1,8 +1,6 @@
 .site-footer {
-  color: #f5f3ee;
-  background:
-    radial-gradient(ellipse at 82% 0%, rgba(152, 123, 73, 0.12), transparent 38%),
-    #171715;
+  color: var(--color-paper);
+  background: radial-gradient(ellipse at 82% 0%, rgba(152, 123, 73, 0.12), transparent 38%), var(--color-ink);
 }
 
 .site-footer__inner {
@@ -30,16 +28,16 @@
   width: 3.5rem;
   aspect-ratio: 1;
   place-items: center;
-  color: #dfc28b;
+  color: var(--color-gold);
   border: 1px solid rgba(223, 194, 139, 0.55);
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-size: 1.1rem;
   letter-spacing: 0.08em;
 }
 
 .site-footer__eyebrow {
   margin: 0;
-  color: #c3a570;
+  color: var(--color-gold-muted);
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.17em;
@@ -48,7 +46,7 @@
 .site-footer__name {
   margin: 0.35rem 0 0;
   color: #fff;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-size: 1.2rem;
 }
 
@@ -72,13 +70,17 @@
   color: rgba(255, 255, 255, 0.77);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
 }
 
 .site-footer__socials a:hover,
 .site-footer__socials a:focus-visible {
-  color: #dfc28b;
-  border-color: #987b49;
+  color: var(--color-gold);
+  border-color: var(--color-gold-dark);
   background: rgba(152, 123, 73, 0.12);
   transform: translateY(-2px);
 }
@@ -113,7 +115,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  color: #dfc28b;
+  color: var(--color-gold);
   text-decoration: none;
   transition: color 180ms ease;
 }
@@ -148,5 +150,23 @@
 
 @media (prefers-reduced-motion: reduce) {
   .site-footer__socials a,
-  .site-footer__bottom a { transition: none; }
+  .site-footer__bottom a {
+    transition: none;
+  }
+  .site-footer__socials a:hover,
+  .site-footer__socials a:focus-visible {
+    transform: none;
+  }
+}
+
+.site-footer__detail {
+  margin: 0.35rem 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.85rem;
+}
+
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }

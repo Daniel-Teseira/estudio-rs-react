@@ -10,6 +10,11 @@
 
 # production
 /build
+/dist
+/.vercel
+/public/images/home/
+/public/images/services/
+/public/icons/
 
 # misc
 .DS_Store
@@ -23,3 +28,13 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+/.nuc-server.pid
+/nuc-server.log
+
+# playwright
+/playwright-report/
+/test-results/
+
+# configuración local de Claude Code
+/.claude/
+/visual-tmp/

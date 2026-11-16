@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '../../router';
 import { usePageTransition } from '../../context/PageTransitionContext';
 
 const TransitionLink = ({ to, onClick, ...props }) => {
@@ -7,13 +7,17 @@ const TransitionLink = ({ to, onClick, ...props }) => {
   const handleClick = (event) => {
     onClick?.(event);
 
+    const link = event.currentTarget;
     if (
       event.defaultPrevented ||
       event.button !== 0 ||
       event.metaKey ||
       event.ctrlKey ||
       event.shiftKey ||
-      event.altKey
+      event.altKey ||
+      link.hasAttribute('download') ||
+      (link.target && link.target !== '_self') ||
+      new URL(link.href).origin !== window.location.origin
     ) {
       return;
     }

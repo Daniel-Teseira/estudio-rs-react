@@ -1,23 +1,37 @@
 import './Card.css';
+import useScrollReveal from '../../hooks/useScrollReveal';
+import getResponsiveImageProps from '../../utils/responsiveImage';
+import TransitionLink from '../TransitionLink/TransitionLink';
 
-const Card = ({ description, title, picture, id, reverse = false }) => {
+const Card = ({ description, title, image, id, to, reverse = false }) => {
+  const { ref, state } = useScrollReveal();
+
   return (
-    <article
-      className={`service-card${reverse ? ' service-card--reverse' : ''}`}
-      data-aos="fade-up"
-      data-aos-duration="700"
-    >
+    <article ref={ref} className={`service-card service-card--${state}${reverse ? ' service-card--reverse' : ''}`}>
       <div className="service-card__media">
-        <img src={picture} alt={`Área de práctica: ${title}`} />
-        <span className="service-card__number">{String(id).padStart(2, '0')}</span>
-        <span className="service-card__media-label">Estudio Jurídico RS</span>
+        <img
+          {...getResponsiveImageProps(image, '(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 42vw')}
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+        <span className="service-card__number" aria-hidden="true">
+          {String(id).padStart(2, '0')}
+        </span>
+        <span className="service-card__media-label" aria-hidden="true">
+          Estudio Jurídico RS
+        </span>
       </div>
       <div className="service-card__content">
         <p className="service-card__eyebrow">Área de práctica</p>
-        <h2>{title}</h2>
+        <h3>
+          <TransitionLink className="service-card__link" to={to}>
+            {title}
+          </TransitionLink>
+        </h3>
         <p className="service-card__description">{description}</p>
-        <span className="service-card__action">
-          Conocer servicio <span aria-hidden="true">→</span>
+        <span className="service-card__action" aria-hidden="true">
+          Conocer servicio <span>→</span>
         </span>
       </div>
     </article>
