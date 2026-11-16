@@ -7,6 +7,7 @@ import usePageMetadata from '../../hooks/usePageMetadata';
 import whatsappUrl from '../../utils/whatsapp';
 import { CONTACT_PAGE } from '../../pageMetadata';
 import { professionalDetails } from '../../utils/studioDetails';
+import { reportContactEvent } from '../../monitoring/clientErrors';
 
 const OTHER_AREA = 'otra';
 
@@ -32,6 +33,7 @@ export const Contact = () => {
       `Consulta: ${formData.get('message')}`,
     ].join('\n');
 
+    reportContactEvent('contact_form', selected?.slug);
     window.open(whatsappUrl(message), '_blank', 'noopener,noreferrer');
   };
 

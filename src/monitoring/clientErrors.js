@@ -58,6 +58,35 @@ export const reportPerformanceMetrics = (metrics, pathname = window.location.pat
   sendReport(payload);
 };
 
+/**
+ * Cuenta de forma anónima un contacto iniciado (sin cookies ni datos de la persona):
+ * solo qué tipo de contacto, desde qué página y, si corresponde, sobre qué área.
+ */
+export const reportContactEvent = (name, area) => {
+  if (!import.meta.env.PROD || typeof window === 'undefined') return;
+  const payload = JSON.stringify({
+    category: 'event',
+    name,
+    pathname: window.location.pathname.slice(0, 160),
+    ...(area ? { area } : {}),
+  });
+  sendReport(payload);
+};
+
+const areaFromPath = (pathname) => pathname.match(/^\/servicios\/([a-z0-9-]+)$/)?.[1];
+
+export const initializeContactTracking = () => {
+  if (!import.meta.env.PROD || typeof window === 'undefined') return;
+  document.addEventListener('click', (event) => {
+    const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (!link) return;
+    const { hostname } = new URL(link.href, window.location.href);
+    const area = areaFromPath(window.location.pathname);
+    if (hostname === 'wa.me') reportContactEvent('whatsapp', area);
+    else if (/(^|\.)(instagram|facebook)\.com$/.test(hostname)) reportContactEvent('social', area);
+  });
+};
+
 export const initializeClientErrorMonitoring = () => {
   if (!import.meta.env.PROD || typeof window === 'undefined') return;
 

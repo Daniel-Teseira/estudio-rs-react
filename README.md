@@ -1,10 +1,10 @@
 # Estudio Jurídico RS
 
-Sitio institucional creado con React, React Router y Vite. Cada página se prerenderiza a HTML estático y se publica en Vercel y en un NUC de la red local.
+Sitio institucional creado con React y Vite. Cada página se prerenderiza a HTML estático y se publica en Vercel y en un NUC de la red local.
 
 ## Requisitos
 
-- Node.js 24.x
+- Node.js 24.x (con nvm para Windows: `nvm install 24` y `nvm use 24`)
 - npm
 
 ## Desarrollo
@@ -24,7 +24,7 @@ npm run test:e2e      # tests en el navegador con Playwright (requiere npm run b
 npm run check         # todo lo anterior, más el build completo
 ```
 
-La primera vez, instalá el navegador de Playwright con `npx playwright install chromium`. Los tests E2E levantan `server.mjs` sobre `dist/` y prueban la navegación, el scroll, los menús de escritorio y móvil, el carrusel, el formulario, las redirecciones y el 404, y fallan si aparece cualquier error en la consola (incluidas las violaciones de la CSP).
+La primera vez, instalá el navegador de Playwright con `npx playwright install chromium`. Los tests E2E levantan `server.mjs` sobre `dist/` y prueban la navegación (incluido atrás/adelante), el scroll, los menús de escritorio y móvil, el carrusel, el formulario, el conteo anónimo de contactos, las redirecciones, el 404 y la portada sin JavaScript. También pasan axe (WCAG 2.2 AA) por cinco páginas, y fallan si aparece cualquier error en la consola (incluidas las violaciones de la CSP).
 
 GitHub Actions corre `npm run check` en cada push a `main` y en cada pull request (`.github/workflows/ci.yml`). Si fallan los tests E2E, el informe queda como artefacto del workflow.
 
@@ -97,16 +97,25 @@ Si avisa que falta *linger*, ejecutá una vez `sudo loginctl enable-linger danie
 
 Sin el servicio, `bash scripts/start-nuc.sh` inicia el servidor con nohup y escribe en `nuc-server.log`, que se rota al superar 5 MB.
 
+### Informe de uso
+
+```bash
+ssh daniel@192.168.1.250 "cd ~/estudio-rs-react && bash scripts/report-nuc.sh 30"
+```
+
+Resume los últimos N días (7 si no se indica): percentil 75 de los tiempos de carga (LCP, CLS, interacción), páginas más visitadas, contactos iniciados por tipo y área (WhatsApp, redes, formulario) y los errores más frecuentes del navegador.
+
 ## Rutas
 
 - `/` portada, `/contacto`, `/privacidad` y `/servicios/<slug>` para cada área.
 - `/home` y `/contact` redirigen con 308 a `/` y `/contacto`. Se definen en `vercel.json`; `server.mjs` las aplica en el NUC y `src/routes.js` en la navegación interna. Un test verifica que coincidan.
 - `/contacto?area=<slug>` abre el formulario con el área preseleccionada.
 - Al pasar a otra página se vuelve arriba; con atrás/adelante el navegador restaura la posición.
+- La navegación usa un router propio y chico (`src/router/`) con la misma API que React Router: `Router`, `Routes`, `Route`, `Navigate`, `Link` y los hooks `useLocation`, `useNavigate`, `useNavigationType`, `useParams` y `useSearchParams`. El prerender usa el mismo `Router` con una ubicación fija.
 
 ## Datos y contenido
 
-- `src/data/studio.json`: nombre, WhatsApp, redes y datos profesionales (abogada/o, matrícula, texto "Sobre el estudio", dirección, horario, correo). Los campos vacíos no se muestran; al completarlos aparecen en la portada, en contacto, en el pie y en los datos estructurados.
+- `src/data/studio.json`: nombre, WhatsApp, redes y datos profesionales (abogada/o, matrícula, texto "Sobre el estudio", dirección, horario, correo). Los campos vacíos no se muestran; al completarlos aparecen en la portada, en contacto, en el pie y en los datos estructurados. `hours` es el horario tal como se muestra (por ejemplo "Lunes a viernes de 9 a 18 h") y `openingHours` el mismo horario para buscadores en formato schema.org (por ejemplo `["Mo-Fr 09:00-18:00"]`); un test valida ese formato.
 - `src/data/services.json`: cada área con su `slug`, descripción, introducción, casos, documentación útil y preguntas frecuentes.
 - `src/data/process.json`: los pasos de "Cómo trabajamos" de la portada.
 - `src/data/images.json`: imágenes, carpeta y anchos generados.
@@ -119,12 +128,14 @@ Los textos de las áreas, el proceso de trabajo y la política de privacidad son
 
 Las fuentes originales están en `src/assets/images/source/`. Cuando se actualicen, ejecutá `npm run images:optimize`. Se generan imágenes WebP en varios anchos en `public/images/` y los íconos (favicon, Apple y PWA) en `public/icons/` a partir de `src/assets/icons/logo.svg`. Ambas carpetas se regeneran en cada `dev` y `build`, por eso no se versionan.
 
+Las fotos se muestran a pantalla completa en la página de cada servicio. El optimizador avisa si un original mide menos de 1600 px (hoy, Familia y Laboral se ven ampliadas en monitores grandes: conviene reemplazarlas) y falla si `images.json` pide un ancho mayor que el original.
+
 ## Estilos
 
-- `src/styles/tokens.css`: colores y tipografías del sitio como variables CSS.
-- `src/styles/bootstrap.scss`: solo los estilos de Bootstrap que se usan. El comportamiento de la navbar, el menú desplegable y el carrusel lo resuelven componentes React propios, sin el JavaScript de Bootstrap.
+- `src/styles/tokens.css`: colores y tipografías del sitio como variables CSS. Para textos chicos sobre fondo claro usá `--color-gold-text`, que cumple el contraste AA; los otros dorados no.
+- `src/styles/base.css`: estilos base (reboot, contenedor, navbar, menú desplegable y algunas utilidades). Es el subconjunto de Bootstrap que se usaba, ya compilado y sin selectores sin uso; Bootstrap no es una dependencia. La navbar, el menú desplegable y el carrusel son componentes React propios.
 - La fuente Quattrocento se sirve desde el propio sitio con `@fontsource/quattrocento`.
 
 ## Seguridad y monitoreo
 
-`vercel.json` define los encabezados de seguridad (CSP sin estilos ni scripts en línea, `Cross-Origin-Opener-Policy`, `X-Frame-Options`, etc.); `server.mjs` aplica los mismos en el NUC. La función `api/client-errors.js` recibe errores del navegador y métricas de carga y las escribe en los registros (en Vercel: **Project → Logs**, filtrando por `client_error` o `client_performance`; en el NUC: journald).
+`vercel.json` define los encabezados de seguridad (CSP sin estilos ni scripts en línea, `Cross-Origin-Opener-Policy`, `X-Frame-Options`, etc.); `server.mjs` aplica los mismos en el NUC. La función `api/client-errors.js` recibe errores del navegador, métricas de carga y contactos iniciados (anónimos: solo tipo, página y área, sin cookies) y los escribe en los registros (en Vercel: **Project → Logs**, filtrando por `client_error`, `client_performance` o `client_event`; en el NUC: journald, resumido por `scripts/report-nuc.sh`). En el NUC, que se accede por HTTP, no se envían `upgrade-insecure-requests` ni `Cross-Origin-Opener-Policy`.

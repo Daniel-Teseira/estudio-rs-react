@@ -103,6 +103,33 @@ test('se rechazan rutas ocultas o malformadas y métodos no admitidos', async ()
   assert.equal(response.headers.get('allow'), 'GET, HEAD');
 });
 
+test('los contactos se registran de forma anónima y solo con nombres conocidos', async () => {
+  const logged = [];
+  const originalLog = console.log;
+  console.log = (...args) => logged.push(args);
+  try {
+    const send = (payload) =>
+      fetch(baseUrl + '/api/client-errors', {
+        method: 'POST',
+        body: JSON.stringify({ category: 'event', ...payload }),
+      });
+    assert.equal((await send({ name: 'whatsapp', pathname: '/servicios/laboral', area: 'laboral' })).status, 204);
+    assert.equal((await send({ name: 'contact_form', pathname: '/contacto', area: '<script>' })).status, 204);
+    assert.equal((await send({ name: 'otro', pathname: '/' })).status, 400);
+  } finally {
+    console.log = originalLog;
+  }
+  const events = logged.filter(([kind]) => kind === 'client_event').map(([, json]) => JSON.parse(json));
+  assert.equal(events.length, 2);
+  assert.deepEqual(
+    events.map(({ name, pathname, area }) => ({ name, pathname, area })),
+    [
+      { name: 'whatsapp', pathname: '/servicios/laboral', area: 'laboral' },
+      { name: 'contact_form', pathname: '/contacto', area: undefined },
+    ],
+  );
+});
+
 test('el monitoreo recibe reportes en el NUC y valida origen y tamaño', async () => {
   const body = JSON.stringify({ category: 'performance', pathname: '/', metrics: { loadMs: 150 } });
   const valid = await fetch(baseUrl + '/api/client-errors', {

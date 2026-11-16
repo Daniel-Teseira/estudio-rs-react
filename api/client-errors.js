@@ -1,6 +1,7 @@
 const recentReports = new Map();
 const maxReportsPerMinute = 30;
 const maxPayloadBytes = 6000;
+const contactEvents = new Set(['whatsapp', 'social', 'contact_form']);
 
 const respond = (response, statusCode) => {
   response.status(statusCode).end();
@@ -69,6 +70,22 @@ export default function handler(request, response) {
       JSON.stringify({
         pathname: pathname.startsWith('/') ? pathname : '/',
         metrics,
+        timestamp: new Date(now).toISOString(),
+      }),
+    );
+    return respond(response, 204);
+  }
+
+  // Contactos iniciados, contados de forma anónima: solo tipo, página y área.
+  if (body.category === 'event') {
+    if (!contactEvents.has(body.name)) return respond(response, 400);
+    const area = typeof body.area === 'string' && /^[a-z0-9-]{1,60}$/.test(body.area) ? body.area : undefined;
+    console.log(
+      'client_event',
+      JSON.stringify({
+        name: body.name,
+        pathname: pathname.startsWith('/') ? pathname : '/',
+        ...(area ? { area } : {}),
         timestamp: new Date(now).toISOString(),
       }),
     );

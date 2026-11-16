@@ -7,10 +7,11 @@ import './styles/tokens.css';
 import './index.css';
 import App from './App';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import { initializeClientErrorMonitoring } from './monitoring/clientErrors';
+import { initializeClientErrorMonitoring, initializeContactTracking } from './monitoring/clientErrors';
 import { initializePerformanceMonitoring } from './monitoring/performanceMetrics';
 
 initializeClientErrorMonitoring();
+initializeContactTracking();
 initializePerformanceMonitoring();
 
 const rootElement = document.getElementById('root');

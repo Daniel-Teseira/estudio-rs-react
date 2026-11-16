@@ -29,7 +29,7 @@ try {
     }
 
     Write-Host "Preparando la versión $($build.version) ($($build.commit.Substring(0, 7))) para el NUC..."
-    tar -czf $archive dist server.mjs package.json vercel.json api/client-errors.js scripts/start-nuc.sh scripts/node-nuc.sh scripts/install-nuc.sh scripts/service-nuc.sh scripts/rollback-nuc.sh
+    tar -czf $archive dist server.mjs package.json vercel.json api/client-errors.js scripts/start-nuc.sh scripts/node-nuc.sh scripts/install-nuc.sh scripts/service-nuc.sh scripts/rollback-nuc.sh scripts/report-nuc.sh scripts/report-nuc.mjs
     if ($LASTEXITCODE -ne 0) { throw 'No se pudo generar el archivo de despliegue.' }
 
     Write-Host 'Copiando al NUC...'

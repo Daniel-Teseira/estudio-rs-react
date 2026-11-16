@@ -77,6 +77,21 @@ test('al cambiar de página se vuelve arriba', async ({ page }) => {
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
 });
 
+test('abrir WhatsApp desde un servicio se cuenta de forma anónima', async ({ page, context }) => {
+  const reports = [];
+  await page.route('**/api/client-errors', async (route) => {
+    reports.push(JSON.parse(route.request().postData()));
+    await route.fulfill({ status: 204 });
+  });
+  // La pestaña de WhatsApp no se carga: solo interesa el evento.
+  await context.route('https://wa.me/**', (route) => route.abort());
+  await page.goto('/servicios/laboral');
+  await page.getByRole('link', { name: /Consultar por WhatsApp/ }).click();
+  await expect
+    .poll(() => reports.find((report) => report.category === 'event'))
+    .toEqual({ category: 'event', name: 'whatsapp', pathname: '/servicios/laboral', area: 'laboral' });
+});
+
 test('atrás y adelante del navegador cambian de página', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('contentinfo').getByRole('link', { name: 'Privacidad' }).click();

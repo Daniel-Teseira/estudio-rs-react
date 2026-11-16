@@ -47,6 +47,10 @@ const Privacy = () => {
             de carga, junto con la página visitada. No incluyen tu nombre ni el contenido del formulario. La dirección
             IP se usa de forma temporal para limitar envíos abusivos y no se guarda en esos registros.
           </li>
+          <li>
+            <strong>Contactos iniciados:</strong> contamos de forma anónima cuántas veces se abre WhatsApp, las redes
+            sociales o el formulario, desde qué página y sobre qué área. No se registra quién lo hace ni lo que escribe.
+          </li>
         </ul>
         <p>El sitio no usa cookies ni herramientas de publicidad o de analítica de terceros.</p>
 

@@ -33,7 +33,7 @@ cp "$incoming/server.mjs" "$incoming/package.json" "$incoming/vercel.json" .
 mkdir -p api scripts
 cp "$incoming/api/client-errors.js" api/
 cp "$incoming/scripts/start-nuc.sh" "$incoming/scripts/node-nuc.sh" "$incoming/scripts/service-nuc.sh" \
-  "$incoming/scripts/rollback-nuc.sh" scripts/
+  "$incoming/scripts/rollback-nuc.sh" "$incoming/scripts/report-nuc.sh" "$incoming/scripts/report-nuc.mjs" scripts/
 mv "$incoming/dist" "$project_directory/dist"
 
 # Conserva solo las 3 copias más recientes.

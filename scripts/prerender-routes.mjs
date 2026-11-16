@@ -85,7 +85,8 @@ try {
       sameAs: studio.social.map((profile) => profile.url),
     };
     if (studio.email) data.email = studio.email;
-    if (studio.hours) data.openingHours = studio.hours;
+    // Formato de schema.org, por ejemplo "Mo-Fr 09:00-18:00"; "hours" es solo el texto que se muestra.
+    if (studio.openingHours?.length) data.openingHours = studio.openingHours;
     if (address) {
       data.address = {
         '@type': 'PostalAddress',

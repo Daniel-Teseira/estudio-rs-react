@@ -66,6 +66,18 @@ test('los scripts de PowerShell tienen exactamente un BOM UTF-8', async () => {
   }
 });
 
+test('el horario para buscadores usa el formato de schema.org', () => {
+  // Ejemplos válidos: "Mo-Fr 09:00-18:00", "Sa 09:00-13:00", "Mo,We,Fr 16:00-20:00".
+  const day = '(Mo|Tu|We|Th|Fr|Sa|Su)';
+  const pattern = new RegExp(
+    `^${day}(-${day})?(,${day}(-${day})?)* ([01]\\d|2[0-3]):[0-5]\\d-([01]\\d|2[0-4]):[0-5]\\d$`,
+  );
+  assert.ok(Array.isArray(studio.openingHours), 'openingHours debe ser una lista');
+  for (const entry of studio.openingHours) assert.match(entry, pattern, `formato inválido: ${entry}`);
+  assert.match('Mo-Fr 09:00-18:00', pattern);
+  assert.doesNotMatch('Lunes a viernes de 9 a 18', pattern);
+});
+
 test('el router reconoce rutas fijas, parámetros y el comodín', () => {
   assert.deepEqual(matchPath('/', '/'), {});
   assert.deepEqual(matchPath('/contacto', '/contacto/'), {});
