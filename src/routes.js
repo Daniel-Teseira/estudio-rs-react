@@ -2,6 +2,7 @@ import services from './data/services.json' with { type: 'json' };
 
 export const HOME_PATH = '/';
 export const CONTACT_PATH = '/contacto';
+export const PRIVACY_PATH = '/privacidad';
 export const servicePath = (service) => `/servicios/${service.slug}`;
 export const findServiceByPath = (pathname) => services.find((service) => servicePath(service) === pathname);
 

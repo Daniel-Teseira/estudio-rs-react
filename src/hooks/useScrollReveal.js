@@ -16,12 +16,15 @@ const useScrollReveal = () => {
       return undefined;
     }
 
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true);
-        observer.unobserve(element);
-      }
-    }, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(element);
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -32px 0px' },
+    );
 
     observer.observe(element);
     return () => observer.disconnect();

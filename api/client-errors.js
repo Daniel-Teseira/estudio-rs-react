@@ -64,17 +64,27 @@ export default function handler(request, response) {
         metrics[key] = Math.round(value * 10) / 10;
       }
     }
-    console.log('client_performance', JSON.stringify({ pathname: pathname.startsWith('/') ? pathname : '/', metrics, timestamp: new Date(now).toISOString() }));
+    console.log(
+      'client_performance',
+      JSON.stringify({
+        pathname: pathname.startsWith('/') ? pathname : '/',
+        metrics,
+        timestamp: new Date(now).toISOString(),
+      }),
+    );
     return respond(response, 204);
   }
 
-  console.error('client_error', JSON.stringify({
-    category: clean(body.category, 40),
-    name: clean(body.name, 100),
-    message: clean(body.message, 300),
-    stack: clean(body.stack, 1200),
-    pathname: pathname.startsWith('/') ? pathname : '/',
-    timestamp: new Date(now).toISOString(),
-  }));
+  console.error(
+    'client_error',
+    JSON.stringify({
+      category: clean(body.category, 40),
+      name: clean(body.name, 100),
+      message: clean(body.message, 300),
+      stack: clean(body.stack, 1200),
+      pathname: pathname.startsWith('/') ? pathname : '/',
+      timestamp: new Date(now).toISOString(),
+    }),
+  );
   return respond(response, 204);
 }

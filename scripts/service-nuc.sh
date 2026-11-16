@@ -2,6 +2,9 @@
 # Instala el servidor como servicio de usuario de systemd para que arranque
 # solo después de reiniciar el NUC y se reinicie si falla. No requiere sudo,
 # salvo para habilitar "linger" si la distribución lo exige.
+# Los registros van a journald, que los rota automáticamente:
+#   journalctl --user -u estudio-rs -f
+# Con --quiet (lo usa install-nuc.sh en cada despliegue) no muestra la ayuda final.
 set -eu
 cd "$(dirname "$0")/.."
 
@@ -32,8 +35,9 @@ Environment=NODE_ENV=production HOST=0.0.0.0 PORT=3004
 ExecStart=$node_bin $PWD/server.mjs
 Restart=on-failure
 RestartSec=3
-StandardOutput=append:$PWD/nuc-server.log
-StandardError=append:$PWD/nuc-server.log
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=estudio-rs
 
 [Install]
 WantedBy=default.target
@@ -42,15 +46,19 @@ UNIT
 systemctl --user daemon-reload
 systemctl --user enable --now estudio-rs.service
 
-# Sin linger, los servicios de usuario solo corren mientras haya una sesión abierta.
+# Sin linger, los servicios de usuario se detienen al cerrar la última sesión.
 if [ "$(loginctl show-user "$USER" --property=Linger --value 2>/dev/null)" != "yes" ]; then
   if ! loginctl enable-linger "$USER" 2>/dev/null; then
-    echo "Para que arranque sin iniciar sesión, ejecutá una vez: sudo loginctl enable-linger $USER" >&2
+    echo "ATENCIÓN: el sitio se detendrá al cerrar la sesión SSH." >&2
+    echo "Para evitarlo, ejecutá una vez: sudo loginctl enable-linger $USER" >&2
   fi
 fi
 
 bash scripts/start-nuc.sh
-echo 'Servicio instalado. Comandos útiles:'
-echo '  systemctl --user status estudio-rs'
-echo '  systemctl --user restart estudio-rs'
-echo "Si actualizás Node.js, volvé a ejecutar: bash scripts/service-nuc.sh"
+if [ "${1:-}" != "--quiet" ]; then
+  echo 'Servicio instalado. Comandos útiles:'
+  echo '  systemctl --user status estudio-rs'
+  echo '  systemctl --user restart estudio-rs'
+  echo '  journalctl --user -u estudio-rs -f'
+  echo 'Si actualizás Node.js, volvé a ejecutar: bash scripts/service-nuc.sh'
+fi

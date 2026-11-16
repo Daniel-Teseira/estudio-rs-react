@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { CONTACT_PATH, HOME_PATH, findServiceByPath } from '../routes';
+import { CONTACT_PATH, HOME_PATH, PRIVACY_PATH, findServiceByPath } from '../routes';
 import { HOME_PAGE, servicePage } from '../pageMetadata';
 
 const setMetaContent = (selector, content) => {
@@ -26,7 +26,7 @@ const usePageMetadata = (title, description) => {
 
     const service = findServiceByPath(currentPath);
     const isHome = currentPath === HOME_PATH;
-    const noIndex = !isHome && currentPath !== CONTACT_PATH && !service;
+    const noIndex = !isHome && currentPath !== CONTACT_PATH && currentPath !== PRIVACY_PATH && !service;
     setMetaContent('meta[name="robots"]', noIndex ? 'noindex, nofollow' : 'index, follow');
     const image = isHome ? HOME_PAGE.image : service && servicePage(service).image;
     for (const selector of ['meta[property="og:image"]', 'meta[name="twitter:image"]']) {

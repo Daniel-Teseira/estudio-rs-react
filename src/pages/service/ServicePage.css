@@ -1,6 +1,6 @@
 .service-page {
   color: #171717;
-  background: #f5f3ee;
+  background: var(--color-paper);
 }
 
 .service-hero {
@@ -33,7 +33,8 @@
 }
 
 .service-hero__shade {
-  background: linear-gradient(90deg, rgba(8, 8, 8, 0.76), rgba(8, 8, 8, 0.08) 85%),
+  background:
+    linear-gradient(90deg, rgba(8, 8, 8, 0.76), rgba(8, 8, 8, 0.08) 85%),
     linear-gradient(0deg, rgba(8, 8, 8, 0.62), transparent 70%);
 }
 
@@ -52,7 +53,7 @@
 
 .service-page__eyebrow {
   margin: 0 0 1rem;
-  color: #dfc28b;
+  color: var(--color-gold);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -63,7 +64,7 @@
   max-width: 58rem;
   margin: 0;
   color: #fff;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-size: clamp(3rem, 8vw, 7rem);
   font-weight: 400;
   line-height: 0.98;
@@ -82,7 +83,7 @@
 
 .service-description__eyebrow {
   margin: 0;
-  color: #917344;
+  color: var(--color-gold-deep);
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.17em;
@@ -92,8 +93,8 @@
 .service-description__text {
   max-width: 48rem;
   margin: 0;
-  color: #34332f;
-  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--color-text);
+  font-family: var(--font-serif);
   font-size: clamp(1.25rem, 2.3vw, 1.9rem);
   line-height: 1.65;
   opacity: 0;
@@ -133,7 +134,7 @@
 .service-faq h2,
 .service-cta h2 {
   margin: 0 0 1.25rem;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-size: clamp(1.4rem, 2.4vw, 1.9rem);
   font-weight: 400;
 }
@@ -149,7 +150,7 @@
 .service-details li {
   position: relative;
   padding-left: 1.4rem;
-  color: #34332f;
+  color: var(--color-text);
   line-height: 1.6;
 }
 
@@ -159,7 +160,7 @@
   left: 0;
   width: 0.5rem;
   height: 1px;
-  background: #917344;
+  background: var(--color-gold-deep);
   content: '';
 }
 
@@ -171,7 +172,7 @@
 
 .service-faq {
   padding: clamp(3rem, 7vw, 6rem) 0;
-  background: #ece8df;
+  background: var(--color-paper-dark);
 }
 
 .service-faq__layout {
@@ -192,7 +193,7 @@
 }
 
 .service-faq__item summary:focus-visible {
-  outline: 3px solid #987b49;
+  outline: 3px solid var(--color-gold-dark);
   outline-offset: 3px;
 }
 
@@ -205,7 +206,7 @@
 .service-cta {
   padding: clamp(3rem, 7vw, 5rem) 0;
   color: #fff;
-  background: #171715;
+  background: var(--color-ink);
 }
 
 .service-cta__layout {
@@ -241,19 +242,21 @@
   padding: 0.75rem 1.4rem;
   font-weight: 700;
   text-decoration: none;
-  border: 1px solid #dfc28b;
+  border: 1px solid var(--color-gold);
   border-radius: 999px;
-  transition: background-color 180ms ease, color 180ms ease;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
 }
 
 .service-cta__button--primary {
-  color: #171715;
-  background: #dfc28b;
+  color: var(--color-ink);
+  background: var(--color-gold);
 }
 
 .service-cta__button--primary:hover {
-  color: #171715;
-  background: #f0d9ac;
+  color: var(--color-ink);
+  background: var(--color-gold-light);
 }
 
 .service-cta__button--secondary {
@@ -261,8 +264,8 @@
 }
 
 .service-cta__button--secondary:hover {
-  color: #171715;
-  background: #dfc28b;
+  color: var(--color-ink);
+  background: var(--color-gold);
 }
 
 .service-cta__button:focus-visible {
@@ -271,18 +274,36 @@
 }
 
 @keyframes service-image-drop {
-  from { clip-path: inset(0 0 100% 0); opacity: 0.7; }
-  to { clip-path: inset(0 0 0 0); opacity: 1; }
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0.7;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
 }
 
 @keyframes service-title-enter {
-  from { opacity: 0; transform: translateX(-28px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes service-description-enter {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 767.98px) {

@@ -49,8 +49,8 @@ export const Contact = () => {
           <p className="contact-eyebrow">ESTAMOS PARA ACOMPAÑARTE</p>
           <h1 id="contact-title">Hablemos de tu situación.</h1>
           <p className="contact-lead">
-            Cada consulta merece atención y claridad. Elegí un canal y escribinos brevemente
-            qué necesitás para iniciar la conversación.
+            Cada consulta merece atención y claridad. Elegí un canal y escribinos brevemente qué necesitás para iniciar
+            la conversación.
           </p>
           <a className="contact-whatsapp" href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
             Escribir por WhatsApp <span aria-hidden="true">↗</span>
@@ -102,9 +102,13 @@ export const Contact = () => {
               <label>
                 Área de consulta
                 <select name="area" value={area} onChange={(event) => setArea(event.target.value)} required>
-                  <option value="" disabled>Elegí un área</option>
+                  <option value="" disabled>
+                    Elegí un área
+                  </option>
                   {services.map((service) => (
-                    <option key={service.slug} value={service.slug}>{service.title}</option>
+                    <option key={service.slug} value={service.slug}>
+                      {service.title}
+                    </option>
                   ))}
                   <option value={OTHER_AREA}>Otra consulta</option>
                 </select>
@@ -118,9 +122,8 @@ export const Contact = () => {
               Preparar mensaje <span aria-hidden="true">→</span>
             </button>
             <p className="contact-form__note" id="contact-form-delivery-note">
-              Al continuar, se abrirá WhatsApp con el mensaje preparado. Solo se enviará
-              cuando lo confirmes desde esa aplicación. Evitá incluir documentación o datos
-              sensibles en el primer mensaje.
+              Al continuar, se abrirá WhatsApp con el mensaje preparado. Solo se enviará cuando lo confirmes desde esa
+              aplicación. Evitá incluir documentación o datos sensibles en el primer mensaje.
             </p>
           </form>
         </div>

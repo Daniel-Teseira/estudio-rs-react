@@ -22,7 +22,7 @@ if [ "${1:-}" != "--stop" ] && command -v systemctl >/dev/null 2>&1 \
   for attempt in $(seq 1 20); do
     if server_responds; then
       echo 'Listo: http://192.168.1.250:3004'
-      echo "Registro: $PWD/nuc-server.log"
+      echo 'Registro: journalctl --user -u estudio-rs'
       exit 0
     fi
     sleep 0.25
@@ -63,6 +63,11 @@ if [ "${1:-}" = "--stop" ]; then
 fi
 
 node --input-type=module -e 'import net from "node:net"; const server = net.createServer(); server.on("error", (error) => { console.error("No se puede usar el puerto 3004: " + error.message); process.exit(1); }); server.listen(3004, "0.0.0.0", () => server.close());'
+
+# Sin systemd, el registro se rota al iniciar si supera 5 MB (se conserva una copia .1).
+if [ -f nuc-server.log ] && [ "$(wc -c < nuc-server.log)" -gt 5242880 ]; then
+  mv nuc-server.log nuc-server.log.1
+fi
 
 nohup env NODE_ENV=production HOST=0.0.0.0 PORT=3004 node "$PWD/server.mjs" >> "$PWD/nuc-server.log" 2>&1 < /dev/null &
 server_pid=$!

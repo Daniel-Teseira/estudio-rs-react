@@ -41,7 +41,10 @@ test('las imágenes generan srcset con todos los anchos configurados', () => {
   const props = getResponsiveImageProps('family', '100vw');
   assert.equal(props.src, '/images/services/family-640.webp');
   assert.equal(props.sizes, '100vw');
-  assert.equal(props.srcSet, '/images/services/family-360.webp 360w, /images/services/family-480.webp 480w, /images/services/family-640.webp 640w');
+  assert.equal(
+    props.srcSet,
+    '/images/services/family-360.webp 360w, /images/services/family-480.webp 480w, /images/services/family-640.webp 640w',
+  );
   assert.equal(imageUrl('justice-gavel'), '/images/home/justice-gavel-1920.webp');
   assert.throws(() => imageUrl('no-existe'), /no configurada/);
 });

@@ -1,6 +1,6 @@
 {
   "name": "estudio-juridico-rs",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "private": true,
   "type": "module",
   "description": "Sitio institucional de Estudio Jurídico RS",
@@ -13,12 +13,15 @@
     "start": "npm run dev",
     "prebuild": "npm run images:optimize",
     "build": "vite build",
-    "postbuild": "node scripts/prerender-routes.mjs && node scripts/verify-build.mjs",
+    "postbuild": "node scripts/prerender-routes.mjs && node scripts/build-info.mjs && node scripts/compress-build.mjs && node scripts/verify-build.mjs",
     "preview": "vite preview",
     "images:optimize": "node scripts/optimize-images.mjs && node scripts/generate-icons.mjs",
     "test": "node --test",
-    "check": "npm run lint && npm run test && npm run build",
-    "lint": "eslint ."
+    "check": "npm run lint && npm run format:check && npm run test && npm run build && npm run test:e2e",
+    "lint": "eslint .",
+    "test:e2e": "playwright test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@fontsource/quattrocento": "^5.3.0",
@@ -29,13 +32,21 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.1",
     "@vitejs/plugin-react": "^6.0.0",
     "eslint": "^10.15.0",
+    "eslint-plugin-jsx-a11y-x": "^0.2.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.8",
     "globals": "^17.14.0",
+    "prettier": "^3.10.1",
     "sass": "^1.108.2",
     "sharp": "^0.35.5",
     "vite": "^8.1.0"
+  },
+  "overrides": {
+    "eslint-plugin-jsx-a11y-x": {
+      "minimatch": "^11.0.8"
+    }
   }
 }

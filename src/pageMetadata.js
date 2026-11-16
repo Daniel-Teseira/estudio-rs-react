@@ -13,6 +13,11 @@ export const CONTACT_PAGE = {
   description: `Contactá a ${studio.name} para iniciar una consulta por WhatsApp o redes sociales.`,
 };
 
+export const PRIVACY_PAGE = {
+  title: `Política de privacidad | ${studio.name}`,
+  description: `Cómo trata ${studio.name} los datos de quienes visitan el sitio o realizan una consulta.`,
+};
+
 export const NOT_FOUND_PAGE = {
   title: `Página no encontrada | ${studio.name}`,
   description: 'La página que buscás no está disponible. Volvé al inicio o contactá al estudio.',

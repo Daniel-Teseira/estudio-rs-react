@@ -15,5 +15,12 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      # Lint, tests, build, prerender y verificación del resultado.
+      - run: npx playwright install --with-deps chromium
+      # Lint, formato, tests, build, prerender, verificación y tests E2E en el navegador.
       - run: npm run check
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

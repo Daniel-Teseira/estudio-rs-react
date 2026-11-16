@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import './PageTransition.css';
 
 const COVER_DURATION = 180;
@@ -10,6 +10,26 @@ const PageTransitionContext = createContext(null);
 // eslint-disable-next-line react-refresh/only-export-components
 export const usePageTransition = () => useContext(PageTransitionContext);
 
+/**
+ * Cada página nueva empieza arriba. Al volver con atrás/adelante (POP)
+ * se deja que el navegador restaure la posición anterior.
+ */
+const useScrollToTopOnNavigate = (pathname) => {
+  const navigationType = useNavigationType();
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (navigationType !== 'POP') {
+      // "instant" evita el desplazamiento suave que Bootstrap activa en :root.
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+  }, [pathname, navigationType]);
+};
+
 export const PageTransitionProvider = ({ children }) => {
   const navigate = useNavigate();
   const { pathname, search } = useLocation();
@@ -18,6 +38,7 @@ export const PageTransitionProvider = ({ children }) => {
   const [animatedPath, setAnimatedPath] = useState(null);
   const timers = useRef([]);
   const transitionId = useRef(0);
+  useScrollToTopOnNavigate(pathname);
 
   const clearTimers = useCallback(() => {
     timers.current.forEach(window.clearTimeout);
@@ -33,41 +54,49 @@ export const PageTransitionProvider = ({ children }) => {
 
   useEffect(() => () => clearTimers(), [clearTimers]);
 
-  const navigateWithTransition = useCallback((to) => {
-    if (phase !== 'idle' || to === pathname + search) return;
+  const navigateWithTransition = useCallback(
+    (to) => {
+      if (phase !== 'idle' || to === pathname + search) return;
 
-    clearTimers();
-    const id = ++transitionId.current;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const destinationPath = to.split('?')[0];
-    setAnimatedPath(destinationPath);
+      clearTimers();
+      const id = ++transitionId.current;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const destinationPath = to.split('?')[0];
+      setAnimatedPath(destinationPath);
 
-    if (reduceMotion || destinationPath === pathname) {
-      navigate(to);
-      return;
-    }
+      if (reduceMotion || destinationPath === pathname) {
+        navigate(to);
+        return;
+      }
 
-    setHasEntered(false);
-    setPhase('covering');
+      setHasEntered(false);
+      setPhase('covering');
 
-    // La página ya está cargada: se navega en cuanto la cortina cubre la pantalla.
-    schedule(() => {
-      navigate(to);
-      setPhase('revealing');
-      schedule(() => {
-        setHasEntered(true);
-        setPhase('idle');
-      }, REVEAL_DURATION, id);
-    }, COVER_DURATION, id);
-  }, [clearTimers, navigate, pathname, search, phase, schedule]);
+      // La página ya está cargada: se navega en cuanto la cortina cubre la pantalla.
+      schedule(
+        () => {
+          navigate(to);
+          setPhase('revealing');
+          schedule(
+            () => {
+              setHasEntered(true);
+              setPhase('idle');
+            },
+            REVEAL_DURATION,
+            id,
+          );
+        },
+        COVER_DURATION,
+        id,
+      );
+    },
+    [clearTimers, navigate, pathname, search, phase, schedule],
+  );
 
   return (
     <PageTransitionContext.Provider value={{ phase, hasEntered, animatedPath, navigateWithTransition }}>
       {children}
-      <div
-        className={`page-transition-curtain page-transition-curtain--${phase}`}
-        aria-hidden="true"
-      />
+      <div className={`page-transition-curtain page-transition-curtain--${phase}`} aria-hidden="true" />
     </PageTransitionContext.Provider>
   );
 };

@@ -31,8 +31,33 @@ for (const service of services) {
   await access(path.join(distDirectory, imageUrl(service.image).replace(/^\//, '')));
 }
 
-for (const icon of ['logo.svg', 'favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png']) {
+for (const icon of [
+  'logo.svg',
+  'favicon-32.png',
+  'apple-touch-icon.png',
+  'icon-192.png',
+  'icon-512.png',
+  'icon-maskable-512.png',
+]) {
   await access(path.join(distDirectory, 'icons', icon));
+}
+
+const privacyHtml = await htmlAt('privacidad.html');
+assert.match(privacyHtml, /Ley N\.º 25\.326/, 'la política de privacidad debe llegar renderizada');
+
+// La CSP no permite estilos en línea: ningún HTML generado puede usarlos.
+for (const file of ['index.html', 'contacto.html', 'privacidad.html', '404.html', 'servicios/familia.html']) {
+  assert.doesNotMatch(await htmlAt(file), /\sstyle=/i, file + ' no debe tener atributos style');
+}
+
+const versionInfo = JSON.parse(await htmlAt('version.json'));
+assert.ok(versionInfo.version && versionInfo.commit, 'version.json debe indicar versión y commit');
+
+if (!process.env.VERCEL) {
+  for (const file of ['index.html', 'contacto.html', '404.html']) {
+    await access(path.join(distDirectory, file + '.br'));
+    await access(path.join(distDirectory, file + '.gz'));
+  }
 }
 
 const notFoundHtml = await htmlAt('404.html');

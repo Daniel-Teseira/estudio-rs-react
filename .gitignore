@@ -30,3 +30,7 @@ yarn-error.log*
 .env
 /.nuc-server.pid
 /nuc-server.log
+
+# playwright
+/playwright-report/
+/test-results/

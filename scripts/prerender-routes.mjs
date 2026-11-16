@@ -10,11 +10,8 @@ const projectRoot = path.resolve(fileURLToPath(new URL('../', import.meta.url)))
 const distDirectory = path.join(projectRoot, 'dist');
 const siteUrlValue = process.env.VITE_SITE_URL ?? loadEnv('production', projectRoot, 'VITE_').VITE_SITE_URL;
 const siteUrl = siteUrlValue ? new URL(siteUrlValue).origin : null;
-const escapeHtml = (value) => String(value)
-  .replaceAll('&', '&amp;')
-  .replaceAll('"', '&quot;')
-  .replaceAll('<', '&lt;')
-  .replaceAll('>', '&gt;');
+const escapeHtml = (value) =>
+  String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
 const vite = await createServer({
   configFile: path.join(projectRoot, 'vite.config.mjs'),
@@ -35,14 +32,15 @@ const setMeta = (html, attribute, key, content) => {
 try {
   // Rutas, títulos y datos salen de los mismos módulos que usa el sitio.
   const load = (file) => vite.ssrLoadModule(file);
-  const [{ default: App }, metadata, siteRoutes, { default: services }, { default: studio }, studioDetails] = await Promise.all([
-    load('/src/App.jsx'),
-    load('/src/pageMetadata.js'),
-    load('/src/routes.js'),
-    load('/src/data/services.json'),
-    load('/src/data/studio.json'),
-    load('/src/utils/studioDetails.js'),
-  ]);
+  const [{ default: App }, metadata, siteRoutes, { default: services }, { default: studio }, studioDetails] =
+    await Promise.all([
+      load('/src/App.jsx'),
+      load('/src/pageMetadata.js'),
+      load('/src/routes.js'),
+      load('/src/data/services.json'),
+      load('/src/data/studio.json'),
+      load('/src/utils/studioDetails.js'),
+    ]);
 
   const routes = [
     { path: siteRoutes.HOME_PATH, file: 'index.html', canonicalPath: '/', structuredData: true, ...metadata.HOME_PAGE },
@@ -51,6 +49,12 @@ try {
       file: siteRoutes.CONTACT_PATH.slice(1) + '.html',
       canonicalPath: siteRoutes.CONTACT_PATH,
       ...metadata.CONTACT_PAGE,
+    },
+    {
+      path: siteRoutes.PRIVACY_PATH,
+      file: siteRoutes.PRIVACY_PATH.slice(1) + '.html',
+      canonicalPath: siteRoutes.PRIVACY_PATH,
+      ...metadata.PRIVACY_PAGE,
     },
     ...services.map((service) => ({
       path: siteRoutes.servicePath(service),
@@ -96,7 +100,7 @@ try {
 
   const renderRoute = (baseHtml, route) => {
     const markup = renderToString(
-      React.createElement(StaticRouter, { location: route.path }, React.createElement(App))
+      React.createElement(StaticRouter, { location: route.path }, React.createElement(App)),
     );
     let html = baseHtml.replace('<div id="root"></div>', '<div id="root">' + markup + '</div>');
 
@@ -108,7 +112,10 @@ try {
     html = setMeta(html, 'name', 'twitter:description', route.description);
 
     if (route.structuredData) {
-      html = html.replace('</head>', '    <script type="application/ld+json">' + structuredData() + '</script>\n  </head>');
+      html = html.replace(
+        '</head>',
+        '    <script type="application/ld+json">' + structuredData() + '</script>\n  </head>',
+      );
     }
     if (route.noIndex) {
       html = setMeta(html, 'name', 'robots', 'noindex, nofollow');
@@ -116,7 +123,9 @@ try {
     if (siteUrl && route.canonicalPath) {
       const canonicalUrl = siteUrl + route.canonicalPath;
       const canonicalTag = '<link rel="canonical" href="' + escapeHtml(canonicalUrl) + '" />';
-      html = html.replace(/<link\s+rel="canonical"[^>]*>/i, '').replace('</head>', '    ' + canonicalTag + '\n  </head>');
+      html = html
+        .replace(/<link\s+rel="canonical"[^>]*>/i, '')
+        .replace('</head>', '    ' + canonicalTag + '\n  </head>');
       html = setMeta(html, 'property', 'og:url', canonicalUrl);
       if (route.image) {
         html = setMeta(html, 'property', 'og:image', siteUrl + route.image);
@@ -139,7 +148,9 @@ try {
   const sitemap = siteUrl
     ? '<?xml version="1.0" encoding="UTF-8"?>\n' +
       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-      sitemapRoutes.map((route) => '  <url><loc>' + escapeHtml(siteUrl + route.canonicalPath) + '</loc></url>').join('\n') +
+      sitemapRoutes
+        .map((route) => '  <url><loc>' + escapeHtml(siteUrl + route.canonicalPath) + '</loc></url>')
+        .join('\n') +
       '\n</urlset>\n'
     : null;
   const robots = 'User-agent: *\nAllow: /\n' + (siteUrl ? 'Sitemap: ' + siteUrl + '/sitemap.xml\n' : '');

@@ -1,5 +1,5 @@
-// Solo las partes de Bootstrap que usa el sitio (navbar, menú desplegable,
-// carrusel y algunas utilidades). Para sumar un componente, importalo acá.
+// Solo los estilos de Bootstrap que usa el sitio (navbar, menú desplegable
+// y algunas utilidades). El comportamiento lo resuelven componentes React.
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/variables-dark';
@@ -19,6 +19,5 @@ $utilities: map-get-multiple(
 @import 'bootstrap/scss/nav';
 @import 'bootstrap/scss/navbar';
 @import 'bootstrap/scss/dropdown';
-@import 'bootstrap/scss/carousel';
 @import 'bootstrap/scss/helpers/visually-hidden';
 @import 'bootstrap/scss/utilities/api';

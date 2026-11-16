@@ -3,8 +3,10 @@ import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { after, before, test } from 'node:test';
+import { brotliCompressSync, gzipSync } from 'node:zlib';
 import { createProductionServer } from '../server.mjs';
 
+const APP_SOURCE = 'console.log("Estudio Jurídico RS");\n'.repeat(50);
 let directory;
 let server;
 let baseUrl;
@@ -12,12 +14,16 @@ let baseUrl;
 before(async () => {
   directory = await mkdtemp(path.join(tmpdir(), 'estudio-server-test-'));
   await mkdir(path.join(directory, 'servicios'));
+  await mkdir(path.join(directory, 'assets'));
   for (const [file, contents] of Object.entries({
     'index.html': '<h1>Estudio Jurídico RS</h1>',
     'contacto.html': '<h1>Contacto</h1>',
     'servicios/familia.html': '<h1>Familia</h1>',
     '404.html': '<h1>ERROR 404</h1>',
     'site.css': 'body { color: black; }',
+    'assets/app-abc123.js': APP_SOURCE,
+    'assets/app-abc123.js.br': brotliCompressSync(APP_SOURCE),
+    'assets/app-abc123.js.gz': gzipSync(APP_SOURCE),
   })) {
     await writeFile(path.join(directory, file), contents);
   }
@@ -34,13 +40,19 @@ after(async () => {
   }
   if (directory) {
     const relative = path.relative(tmpdir(), directory);
-    assert.ok(relative.startsWith('estudio-server-test-') && !path.isAbsolute(relative) && !relative.includes(path.sep));
+    assert.ok(
+      relative.startsWith('estudio-server-test-') && !path.isAbsolute(relative) && !relative.includes(path.sep),
+    );
     await rm(directory, { recursive: true, force: true });
   }
 });
 
 test('el servidor publica las páginas renderizadas con rutas limpias', async () => {
-  for (const [route, text] of [['/', 'Estudio Jurídico RS'], ['/contacto', 'Contacto'], ['/servicios/familia', 'Familia']]) {
+  for (const [route, text] of [
+    ['/', 'Estudio Jurídico RS'],
+    ['/contacto', 'Contacto'],
+    ['/servicios/familia', 'Familia'],
+  ]) {
     const response = await fetch(baseUrl + route);
     assert.equal(response.status, 200);
     assert.match(response.headers.get('content-type'), /text\/html/);
@@ -51,7 +63,11 @@ test('el servidor publica las páginas renderizadas con rutas limpias', async ()
 });
 
 test('las direcciones antiguas redirigen de forma permanente y conservan la consulta', async () => {
-  for (const [route, destination] of [['/home', '/'], ['/contact', '/contacto'], ['/contact/?area=laboral', '/contacto?area=laboral']]) {
+  for (const [route, destination] of [
+    ['/home', '/'],
+    ['/contact', '/contacto'],
+    ['/contact/?area=laboral', '/contacto?area=laboral'],
+  ]) {
     const response = await fetch(baseUrl + route, { redirect: 'manual' });
     assert.equal(response.status, 308, route);
     assert.equal(response.headers.get('location'), destination);
@@ -89,13 +105,17 @@ test('se rechazan rutas ocultas o malformadas y métodos no admitidos', async ()
 test('el monitoreo recibe reportes en el NUC y valida origen y tamaño', async () => {
   const body = JSON.stringify({ category: 'performance', pathname: '/', metrics: { loadMs: 150 } });
   const valid = await fetch(baseUrl + '/api/client-errors', {
-    method: 'POST', body, headers: { Origin: baseUrl, 'Content-Type': 'application/json' },
+    method: 'POST',
+    body,
+    headers: { Origin: baseUrl, 'Content-Type': 'application/json' },
   });
   assert.equal(valid.status, 204);
   assert.equal(valid.headers.get('cache-control'), 'no-store');
 
   const foreign = await fetch(baseUrl + '/api/client-errors', {
-    method: 'POST', body, headers: { Origin: 'https://otro-sitio.example' },
+    method: 'POST',
+    body,
+    headers: { Origin: 'https://otro-sitio.example' },
   });
   assert.equal(foreign.status, 403);
 
@@ -105,4 +125,43 @@ test('el monitoreo recibe reportes en el NUC y valida origen y tamaño', async (
   assert.equal(oversized.status, 413);
   const unsupported = await fetch(baseUrl + '/api/client-errors');
   assert.equal(unsupported.status, 405);
+});
+
+test('los recursos se entregan comprimidos según Accept-Encoding', async () => {
+  for (const [accept, encoding] of [
+    ['br, gzip', 'br'],
+    ['gzip', 'gzip'],
+    ['identity', null],
+  ]) {
+    const response = await fetch(baseUrl + '/assets/app-abc123.js', { headers: { 'Accept-Encoding': accept } });
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('content-encoding'), encoding, accept);
+    assert.equal(response.headers.get('vary'), 'Accept-Encoding');
+    assert.match(response.headers.get('content-type'), /javascript/);
+    assert.equal(await response.text(), APP_SOURCE);
+  }
+  const direct = await fetch(baseUrl + '/assets/app-abc123.js.br');
+  assert.equal(direct.status, 404, 'las variantes comprimidas no se publican como archivos');
+});
+
+test('los recursos con hash se cachean un año y el HTML se revalida', async () => {
+  const asset = await fetch(baseUrl + '/assets/app-abc123.js');
+  assert.equal(asset.headers.get('cache-control'), 'public, max-age=31536000, immutable');
+  const html = await fetch(baseUrl + '/contacto');
+  assert.equal(html.headers.get('cache-control'), 'no-cache');
+  const missingAsset = await fetch(baseUrl + '/assets/no-existe.js');
+  assert.equal(missingAsset.status, 404);
+  assert.equal(missingAsset.headers.get('cache-control'), 'no-cache');
+});
+
+test('con ETag el navegador recibe 304 sin volver a descargar', async () => {
+  const first = await fetch(baseUrl + '/contacto');
+  const etag = first.headers.get('etag');
+  assert.ok(etag);
+  assert.ok(first.headers.get('last-modified'));
+  const second = await fetch(baseUrl + '/contacto', { headers: { 'If-None-Match': etag } });
+  assert.equal(second.status, 304);
+  assert.equal(await second.text(), '');
+  const changed = await fetch(baseUrl + '/contacto', { headers: { 'If-None-Match': 'W/"otro"' } });
+  assert.equal(changed.status, 200);
 });

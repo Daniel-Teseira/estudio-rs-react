@@ -29,11 +29,15 @@ export const initializePerformanceMonitoring = () => {
       if (!entry.hadRecentInput) cumulativeLayoutShift += entry.value;
     }
   });
-  observe('event', (entries) => {
-    for (const entry of entries) {
-      if (entry.interactionId) maxInteractionMs = Math.max(maxInteractionMs, entry.duration);
-    }
-  }, { durationThreshold: 40 });
+  observe(
+    'event',
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.interactionId) maxInteractionMs = Math.max(maxInteractionMs, entry.duration);
+      }
+    },
+    { durationThreshold: 40 },
+  );
   observe('paint', (entries) => {
     const firstContentfulPaint = entries.find((entry) => entry.name === 'first-contentful-paint');
     if (firstContentfulPaint) metrics.fcpMs = round(firstContentfulPaint.startTime);

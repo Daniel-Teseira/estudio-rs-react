@@ -11,11 +11,14 @@ class ErrorBoundary extends Component {
 
   componentDidCatch(error, info) {
     // El stack del error indica dónde falló; el de componentes, en qué parte de la interfaz.
-    reportClientError({
-      name: error?.name,
-      message: error?.message,
-      stack: [error?.stack, info?.componentStack && 'Componentes:' + info.componentStack].filter(Boolean).join('\n'),
-    }, 'react');
+    reportClientError(
+      {
+        name: error?.name,
+        message: error?.message,
+        stack: [error?.stack, info?.componentStack && 'Componentes:' + info.componentStack].filter(Boolean).join('\n'),
+      },
+      'react',
+    );
   }
 
   render() {

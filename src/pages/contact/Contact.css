@@ -1,7 +1,7 @@
 .contact-page {
-  --contact-ink: #20201d;
-  --contact-muted: #686761;
-  --contact-gold: #80643c;
+  --contact-ink: var(--color-ink-soft);
+  --contact-muted: var(--color-muted);
+  --contact-gold: var(--color-gold-text);
   width: min(100% - 2rem, 70rem);
   margin: 0 auto;
   padding: clamp(2rem, 6vw, 5rem) 0 clamp(3rem, 7vw, 6rem);
@@ -29,7 +29,9 @@
   overflow: hidden;
   padding: clamp(1.75rem, 4vw, 3rem);
   color: #fff;
-  background: radial-gradient(ellipse at 78% 22%, rgba(185, 151, 91, 0.22), transparent 42%), linear-gradient(145deg, #25241f, #121212 75%);
+  background:
+    radial-gradient(ellipse at 78% 22%, rgba(185, 151, 91, 0.22), transparent 42%),
+    linear-gradient(145deg, #25241f, #121212 75%);
 }
 
 .contact-intro__visual::before,
@@ -58,7 +60,7 @@
 }
 
 .contact-intro__mark {
-  color: #dfc28b;
+  color: var(--color-gold);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -108,7 +110,7 @@
 .contact-form-card h2 {
   margin: 0;
   color: var(--contact-ink);
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-weight: 400;
   letter-spacing: -0.035em;
   line-height: 1.08;
@@ -149,7 +151,10 @@
   letter-spacing: 0.08em;
   text-decoration: none;
   text-transform: uppercase;
-  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
 }
 
 .contact-whatsapp:hover,
@@ -253,7 +258,9 @@
   font-size: 0.88rem;
   font-weight: 400;
   outline: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .contact-form textarea {
@@ -293,8 +300,14 @@
 }
 
 @keyframes contact-enter {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 767.98px) {
@@ -346,14 +359,20 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .contact-intro { animation: none; }
+  .contact-intro {
+    animation: none;
+  }
   .contact-whatsapp,
   .contact-details > a,
   .contact-form input,
   .contact-form select,
-  .contact-form textarea { transition: none; }
+  .contact-form textarea {
+    transition: none;
+  }
   .contact-whatsapp:hover,
-  .contact-whatsapp:focus-visible { transform: none; }
+  .contact-whatsapp:focus-visible {
+    transform: none;
+  }
 }
 
 .contact-details > .contact-details__item {

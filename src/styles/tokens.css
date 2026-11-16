@@ -1,0 +1,17 @@
+/* Colores y tipografías del sitio. Cambiá un valor acá y se aplica en todas las páginas. */
+:root {
+  --color-ink: #171715;
+  --color-ink-soft: #20201d;
+  --color-text: #34332f;
+  --color-muted: #686761;
+  --color-paper: #f5f3ee;
+  --color-paper-dark: #ece8df;
+  --color-gold: #dfc28b;
+  --color-gold-light: #f0d9ac;
+  --color-gold-muted: #c3a570;
+  --color-gold-dark: #987b49;
+  --color-gold-deep: #917344;
+  --color-gold-text: #80643c;
+  --font-display: 'Quattrocento', Georgia, serif;
+  --font-serif: Georgia, 'Times New Roman', serif;
+}

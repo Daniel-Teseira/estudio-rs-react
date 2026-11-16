@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import services from '../../data/services.json';
 import { usePageTransition } from '../../context/PageTransitionContext';
 import usePageMetadata from '../../hooks/usePageMetadata';
@@ -17,10 +16,6 @@ const ServiceContent = ({ service }) => {
   const metadata = servicePage(service);
   usePageMetadata(metadata.title, metadata.description);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [service.slug]);
-
   return (
     <main className="service-page" aria-busy={!showService}>
       <section
@@ -36,7 +31,9 @@ const ServiceContent = ({ service }) => {
         <div className="service-hero__shade" />
         <div className="container service-hero__content">
           <p className="service-page__eyebrow">Áreas de práctica</p>
-          <h1 className="service-hero__title" id="service-title">{service.title}</h1>
+          <h1 className="service-hero__title" id="service-title">
+            {service.title}
+          </h1>
         </div>
       </section>
 
@@ -55,13 +52,17 @@ const ServiceContent = ({ service }) => {
           <div className="service-details__block">
             <h2>¿En qué casos te podemos ayudar?</h2>
             <ul>
-              {service.cases.map((item) => <li key={item}>{item}</li>)}
+              {service.cases.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </div>
           <div className="service-details__block">
             <h2>Documentación útil para la consulta</h2>
             <ul>
-              {service.documents.map((item) => <li key={item}>{item}</li>)}
+              {service.documents.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
             <p className="service-details__note">
               Si no tenés toda la documentación, igual podés consultarnos: te indicamos qué hace falta.

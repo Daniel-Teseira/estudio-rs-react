@@ -17,9 +17,11 @@ for (const job of jobs) {
   const outputDirectory = path.join(projectRoot, 'public/images', job.folder);
   await mkdir(outputDirectory, { recursive: true });
   const previousOutputs = await readdir(outputDirectory);
-  await Promise.all(previousOutputs
-    .filter((file) => file === `${job.name}.webp` || new RegExp(`^${job.name}-\\d+\\.webp$`).test(file))
-    .map((file) => rm(path.join(outputDirectory, file), { force: true })));
+  await Promise.all(
+    previousOutputs
+      .filter((file) => file === `${job.name}.webp` || new RegExp(`^${job.name}-\\d+\\.webp$`).test(file))
+      .map((file) => rm(path.join(outputDirectory, file), { force: true })),
+  );
   const widths = [...new Set(job.widths.map((width) => Math.min(width, metadata.width)))].sort((a, b) => a - b);
 
   for (const width of widths) {
@@ -52,6 +54,8 @@ for (const job of jobs) {
     await rename(selectedPath, outputPath);
     await rm(temporaryPath, { force: true });
     if (!selectedQuality) throw new Error(`No se pudo generar ${outputPath}`);
-    console.log(`${job.source} → ${job.name}-${width}.webp (${formatBytes(selectedBytes)}, calidad ${selectedQuality})`);
+    console.log(
+      `${job.source} → ${job.name}-${width}.webp (${formatBytes(selectedBytes)}, calidad ${selectedQuality})`,
+    );
   }
 }
